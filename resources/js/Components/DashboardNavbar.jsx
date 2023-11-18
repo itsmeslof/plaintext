@@ -14,7 +14,7 @@ export default function DashboardNavbar() {
                     >
                         Dashboard
                     </NavLink>
-                    <NavLink href="/notes">My Files</NavLink>
+                    <NavLink href="/files">My Files</NavLink>
                     <NavLink
                         active={route().current("profile.edit")}
                         href={route("profile.edit")}
@@ -22,8 +22,8 @@ export default function DashboardNavbar() {
                         Manage Account
                     </NavLink>
                 </div>
-                <PrimaryLinkButton href="/notes/create">
-                    Create A New Note
+                <PrimaryLinkButton href="/files/create">
+                    Create A New File
                 </PrimaryLinkButton>
             </nav>
         </div>
