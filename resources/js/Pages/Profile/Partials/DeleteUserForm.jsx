@@ -58,7 +58,7 @@ export default function DeleteUserForm({ className = "" }) {
                 </p>
             </header>
 
-            <DangerButton onClick={confirmUserDeletion}>
+            <DangerButton type="button" onClick={confirmUserDeletion}>
                 Delete Account
             </DangerButton>
 
@@ -107,7 +107,11 @@ export default function DeleteUserForm({ className = "" }) {
                             Cancel
                         </SecondaryButton>
 
-                        <DangerButton className="ms-3" disabled={processing}>
+                        <DangerButton
+                            className="ms-3"
+                            disabled={processing}
+                            type="submit"
+                        >
                             Delete Account
                         </DangerButton>
                     </div>

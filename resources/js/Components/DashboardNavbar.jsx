@@ -22,7 +22,7 @@ export default function DashboardNavbar() {
                         Manage Account
                     </NavLink>
                 </div>
-                <PrimaryLinkButton href="/files/create">
+                <PrimaryLinkButton href={route("files.create")}>
                     Create A New File
                 </PrimaryLinkButton>
             </nav>
