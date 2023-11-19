@@ -1,3 +1,160 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.hljs {
+    color: #abb2bf;
+    /* background: #282c34; */
+}
+
+.hljs-comment,
+.hljs-quote {
+    color: #5c6370;
+    font-style: italic;
+}
+
+.hljs-doctag,
+.hljs-keyword,
+.hljs-formula {
+    color: #c678dd;
+}
+
+.hljs-section,
+.hljs-name,
+.hljs-selector-tag,
+.hljs-deletion,
+.hljs-subst {
+    color: #e06c75;
+}
+
+.hljs-literal {
+    color: #56b6c2;
+}
+
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-attribute,
+.hljs-meta .hljs-string {
+    color: #98c379;
+}
+
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-type,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-number {
+    color: #d19a66;
+}
+
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-selector-id,
+.hljs-title {
+    color: #61aeee;
+}
+
+.hljs-built_in,
+.hljs-title.class_,
+.hljs-class .hljs-title {
+    color: #e6c07b;
+}
+
+.hljs-emphasis {
+    font-style: italic;
+}
+
+.hljs-strong {
+    font-weight: bold;
+}
+
+.hljs-link {
+    text-decoration: underline;
+}
+
+.hljs .loc.highlighted {
+    @apply bg-sky-400/20;
+    padding: 3px 0;
+}
+
+.heading-permalink {
+    vertical-align: super;
+    font-size: 0.8em;
+    text-decoration: none;
+    transition: all ease 0.4s;
+    opacity: 0;
+}
+
+.heading-permalink:hover {
+    text-decoration: underline;
+}
+
+.heading-permalink-container:hover .heading-permalink {
+    opacity: 1;
+}
+
+blockquote {
+    font-style: normal !important;
+    @apply bg-gray-100 border-l-4 border-gray-300 rounded p-4 space-y-4 decoration-0 !important;
+}
+
+blockquote p::before,
+blockquote p::after {
+    content: "" !important;
+}
+
+/* This is hacky. This is only happening because I have prose defaults - should reconsider the approach to typography. */
+blockquote p,
+blockquote h1,
+blockquote h2,
+blockquote h3,
+blockquote h4,
+blockquote h5,
+blockquote h6 {
+    margin: 0px !important;
+}
+
+.prose a {
+    margin: 0px !important;
+}
+
+#markdownOutput a {
+    @apply text-lg font-semibold text-sky-500 hover:text-sky-300 hover:underline underline-offset-4 hover:decoration-2 inline-flex items-center transition duration-150 ease-in-out focus:outline-none;
+}
+
+a.external-link::after {
+    @apply font-semibold text-sky-500 hover:text-sky-300 hover:underline inline-flex items-center transition duration-150 ease-in-out focus:outline-none;
+    margin-left: 6px;
+    font-size: 14px;
+    content: "(opens in new tab)";
+    vertical-align: super;
+}
+
+#markdownOutput *:not(pre) > code {
+    @apply rounded-md bg-gray-100 py-0 px-2 inline-block;
+}
+
+#markdownOutput *:not(pre) > code::before,
+#markdownOutput *:not(pre) > code::after {
+    content: "";
+}
+
+pre {
+    @apply relative !important;
+}
+
+pre code.hljs[data-lang]::after {
+    content: attr(data-lang);
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    padding: 0px 4px;
+    font-size: 16px;
+    right: 8px;
+    top: 8px;
+}

@@ -26,6 +26,9 @@ Route::middleware('auth')->get('/dashboard', DashboardController::class)->name('
 
 Route::middleware('auth')->prefix('files')->as('files.')->group(function () {
     Route::get('/create', [FileController::class, 'create'])->name('create');
+    Route::get('/{file}', [FileController::class, 'show'])->name('show');
+    Route::get('/{file}/edit', [FileController::class, 'edit'])->name('edit');
+    Route::patch("/{file}", [FileController::class, 'update'])->name('update');
     Route::post('/', [FileController::class, 'store'])->name('store');
 });
 

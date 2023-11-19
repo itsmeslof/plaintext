@@ -22,7 +22,9 @@ class FileResource extends JsonResource
             'visibility' => $this->visibility,
             'user' => $this->user_id,
             'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
             'created_at_humanized' => $this->created_at->diffForHumans(),
+            'updated_at_humanized' => $this->updated_at->diffForHumans(),
             'size' => strlen($this->contents),
         ];
     }

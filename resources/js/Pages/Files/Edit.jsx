@@ -1,20 +1,32 @@
+import CustomLink from "@/Components/CustomLink";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SelectInput from "@/Components/SelectInput";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { Transition } from "@headlessui/react";
 import { Head, useForm } from "@inertiajs/react";
 
-export default function Create() {
-    const { data, setData, post, errors, hasErrors, processing } = useForm({
-        name: "",
-        extension: ".md",
-        visibility: "private",
-        contents: "",
+export default function Edit({ flash, file }) {
+    const fileData = file.data;
+
+    const {
+        data,
+        setData,
+        patch,
+        errors,
+        hasErrors,
+        processing,
+        recentlySuccessful,
+    } = useForm({
+        name: fileData.name || "",
+        extension: fileData.extension || ".md",
+        visibility: fileData.visibility || "private",
+        contents: fileData.contents || "",
     });
 
     function handleSubmit() {
-        post(route("files.store"));
+        patch(route("files.update", fileData.hashid));
     }
 
     return (
@@ -23,23 +35,25 @@ export default function Create() {
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-                    <h2 className="text-lg font-medium text-gray-900">
-                        Create A New File
-                    </h2>
-                    {hasErrors && (
-                        <div className="bg-rose-100 border-l-4 border-rose-300 rounded p-4">
-                            <ul>
-                                {errors.name && <li>{errors.name}</li>}
-                                {errors.extension && (
-                                    <li>{errors.extension}</li>
-                                )}
-                                {errors.visibility && (
-                                    <li>{errors.visibility}</li>
-                                )}
-                                {errors.contents && <li>{errors.contents}</li>}
-                            </ul>
+                    <div className="space-y-1">
+                        <CustomLink href={route("files.show", fileData.hashid)}>
+                            Cancel
+                        </CustomLink>
+                        <h2 className="text-lg font-medium text-gray-900">
+                            Edit File
+                        </h2>
+                    </div>
+                    <Transition
+                        show={recentlySuccessful}
+                        enter="transition ease-in-out"
+                        enterFrom="opacity-0"
+                        leave="transition ease-in-out"
+                        leaveTo="opacity-0"
+                    >
+                        <div className="bg-teal-100 border-l-4 border-teal-300 rounded p-4">
+                            <p>{flash.status}</p>
                         </div>
-                    )}
+                    </Transition>
                     <div className="flex items-end space-x-4">
                         <div className="w-1/3">
                             <InputLabel htmlFor="name" value="File Name" />
@@ -94,7 +108,7 @@ export default function Create() {
                             </SelectInput>
                         </div>
                         <PrimaryButton onClick={handleSubmit}>
-                            Save &amp; Create File
+                            Save File
                         </PrimaryButton>
                     </div>
                     <div>

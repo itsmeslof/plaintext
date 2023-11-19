@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreFileRequest;
+use App\Http\Resources\FileResource;
+use App\Markdown\CustomMarkdownRenderer;
 use App\Models\File;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -31,19 +33,28 @@ class FileController extends Controller
     public function store(StoreFileRequest $request)
     {
         $validated = $request->validated();
-        $user = $request->user();
-        $file = $user->files()->create($validated);
+        $file = $request->user->files()->create($validated);
 
-        dd($file);
         return redirect()->route('files.show', $file);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(File $file)
+    public function show(Request $request, File $file)
     {
-        //
+        $this->authorize('view', $file);
+
+        $html = '';
+        if ($file->extension === '.md') {
+            $parseResult = (new CustomMarkdownRenderer())->render($file->contents);
+            $html = $parseResult->outputHtml;
+        }
+
+        return Inertia::render("Files/Show", [
+            'file' => new FileResource($file),
+            'mdRenderedHtml' => $html
+        ]);
     }
 
     /**
@@ -51,15 +62,24 @@ class FileController extends Controller
      */
     public function edit(File $file)
     {
-        //
+        $this->authorize('edit', $file);
+
+        return Inertia::render("Files/Edit", [
+            'file' => new FileResource($file)
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, File $file)
+    public function update(StoreFileRequest $request, File $file)
     {
-        //
+        $this->authorize('edit', $file);
+
+        $validated = $request->validated();
+        $file->update($validated);
+
+        return back()->with('status', 'File saved.');
     }
 
     /**
