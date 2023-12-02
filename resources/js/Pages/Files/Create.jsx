@@ -1,5 +1,5 @@
+import Button, { Variant } from "@/Components/Button";
 import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
 import SelectInput from "@/Components/SelectInput";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
@@ -29,14 +29,9 @@ export default function Create() {
                     {hasErrors && (
                         <div className="bg-rose-100 border-l-4 border-rose-300 rounded p-4">
                             <ul>
-                                {errors.name && <li>{errors.name}</li>}
-                                {errors.extension && (
-                                    <li>{errors.extension}</li>
-                                )}
-                                {errors.visibility && (
-                                    <li>{errors.visibility}</li>
-                                )}
-                                {errors.contents && <li>{errors.contents}</li>}
+                                {Object.values(errors).map((message) => {
+                                    return <li key={message}>{message}</li>;
+                                })}
                             </ul>
                         </div>
                     )}
@@ -93,9 +88,12 @@ export default function Create() {
                                 <option value="public">Public</option>
                             </SelectInput>
                         </div>
-                        <PrimaryButton onClick={handleSubmit}>
+                        <Button
+                            variant={Variant.Primary}
+                            onClick={handleSubmit}
+                        >
                             Save &amp; Create File
-                        </PrimaryButton>
+                        </Button>
                     </div>
                     <div>
                         <textarea

@@ -1,10 +1,10 @@
 import { useRef } from "react";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { useForm } from "@inertiajs/react";
 import { Transition } from "@headlessui/react";
+import Button, { Variant } from "@/Components/Button";
 
 export default function UpdatePasswordForm({ className = "" }) {
     const passwordInput = useRef();
@@ -122,7 +122,9 @@ export default function UpdatePasswordForm({ className = "" }) {
                 </div>
 
                 <div className="flex items-center gap-4">
-                    <PrimaryButton disabled={processing}>Save</PrimaryButton>
+                    <Button variant={Variant.Secondary} disabled={processing}>
+                        Save
+                    </Button>
 
                     <Transition
                         show={recentlySuccessful}

@@ -1,6 +1,6 @@
 import CustomLink from "@/Components/CustomLink";
 import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
+import Button, { Variant } from "@/Components/Button";
 import SelectInput from "@/Components/SelectInput";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
@@ -8,8 +8,6 @@ import { Transition } from "@headlessui/react";
 import { Head, useForm } from "@inertiajs/react";
 
 export default function Edit({ flash, file }) {
-    const fileData = file.data;
-
     const {
         data,
         setData,
@@ -19,14 +17,14 @@ export default function Edit({ flash, file }) {
         processing,
         recentlySuccessful,
     } = useForm({
-        name: fileData.name || "",
-        extension: fileData.extension || ".md",
-        visibility: fileData.visibility || "private",
-        contents: fileData.contents || "",
+        name: file.name || "",
+        extension: file.extension || ".md",
+        visibility: file.visibility || "private",
+        contents: file.contents || "",
     });
 
     function handleSubmit() {
-        patch(route("files.update", fileData.hashid));
+        patch(route("files.update", file.hashid));
     }
 
     return (
@@ -36,7 +34,7 @@ export default function Edit({ flash, file }) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                     <div className="space-y-1">
-                        <CustomLink href={route("files.show", fileData.hashid)}>
+                        <CustomLink href={route("files.show", file.hashid)}>
                             Cancel
                         </CustomLink>
                         <h2 className="text-lg font-medium text-gray-900">
@@ -107,9 +105,12 @@ export default function Edit({ flash, file }) {
                                 <option value="public">Public</option>
                             </SelectInput>
                         </div>
-                        <PrimaryButton onClick={handleSubmit}>
+                        <Button
+                            variant={Variant.Primary}
+                            onClick={handleSubmit}
+                        >
                             Save File
-                        </PrimaryButton>
+                        </Button>
                     </div>
                     <div>
                         <textarea

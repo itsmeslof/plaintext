@@ -1,6 +1,4 @@
-import { Link } from "@inertiajs/react";
 import NavLink from "./NavLink";
-import PrimaryButton from "./PrimaryButton";
 import PrimaryLinkButton from "./PrimaryLinkButton";
 
 export default function DashboardNavbar() {
