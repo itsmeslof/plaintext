@@ -3,9 +3,9 @@ import Checkbox from "@/Components/Checkbox";
 import GuestLayout from "@/Layouts/GuestLayout";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
-import Button, { Size, Variant } from "@/Components/Button";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
+import Button, { ButtonSize, ButtonVariant } from "@/Components/Button";
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -108,8 +108,8 @@ export default function Login({ status, canResetPassword }) {
                             )}
 
                             <Button
-                                variant={Variant.Primary}
-                                size={Size.Medium}
+                                variant={ButtonVariant.Primary}
+                                size={ButtonSize.Medium}
                                 type="submit"
                                 extraClasses="ms-4"
                                 disabled={processing}

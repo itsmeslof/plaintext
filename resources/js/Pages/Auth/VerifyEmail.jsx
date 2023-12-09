@@ -1,6 +1,6 @@
 import GuestLayout from "@/Layouts/GuestLayout";
-import Button, { Variant } from "@/Components/Button";
 import { Head, Link, useForm } from "@inertiajs/react";
+import Button, { ButtonSize, ButtonVariant } from "@/Components/Button";
 
 export default function VerifyEmail({ status }) {
     const { post, processing } = useForm({});
@@ -31,7 +31,12 @@ export default function VerifyEmail({ status }) {
 
             <form onSubmit={submit}>
                 <div className="mt-4 flex items-center justify-between">
-                    <Button variant={Variant.Primary} disabled={processing}>
+                    <Button
+                        variant={ButtonVariant.Primary}
+                        size={ButtonSize.Medium}
+                        type="submit"
+                        disabled={processing}
+                    >
                         Resend Verification Email
                     </Button>
 

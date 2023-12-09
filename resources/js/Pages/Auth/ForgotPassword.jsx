@@ -1,8 +1,8 @@
 import GuestLayout from "@/Layouts/GuestLayout";
 import InputError from "@/Components/InputError";
-import Button, { Size, Variant } from "@/Components/Button";
 import TextInput from "@/Components/TextInput";
 import { Head, useForm } from "@inertiajs/react";
+import Button, { ButtonSize, ButtonVariant } from "@/Components/Button";
 
 export default function ForgotPassword({ status }) {
     const { data, setData, post, processing, errors } = useForm({
@@ -46,8 +46,9 @@ export default function ForgotPassword({ status }) {
 
                 <div className="flex items-center justify-end mt-4">
                     <Button
-                        variant={Variant.Primary}
-                        size={Size.Medium}
+                        variant={ButtonVariant.Primary}
+                        size={ButtonSize.Medium}
+                        type="submit"
                         extraClasses="ms-4"
                         disabled={processing}
                     >

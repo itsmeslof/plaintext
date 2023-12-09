@@ -1,11 +1,11 @@
-import CustomLink from "@/Components/CustomLink";
 import InputLabel from "@/Components/InputLabel";
-import Button, { Variant } from "@/Components/Button";
 import SelectInput from "@/Components/SelectInput";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Transition } from "@headlessui/react";
 import { Head, useForm } from "@inertiajs/react";
+import ContentLink from "@/Components/Links/ContentLink";
+import Button, { ButtonSize, ButtonVariant } from "@/Components/Button";
 
 export default function Edit({ flash, file }) {
     const {
@@ -34,9 +34,9 @@ export default function Edit({ flash, file }) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                     <div className="space-y-1">
-                        <CustomLink href={route("files.show", file.hashid)}>
+                        <ContentLink href={route("files.show", file.hashid)}>
                             Cancel
-                        </CustomLink>
+                        </ContentLink>
                         <h2 className="text-lg font-medium text-gray-900">
                             Edit File
                         </h2>
@@ -106,7 +106,8 @@ export default function Edit({ flash, file }) {
                             </SelectInput>
                         </div>
                         <Button
-                            variant={Variant.Primary}
+                            variant={ButtonVariant.Primary}
+                            size={ButtonSize.Medium}
                             onClick={handleSubmit}
                         >
                             Save File

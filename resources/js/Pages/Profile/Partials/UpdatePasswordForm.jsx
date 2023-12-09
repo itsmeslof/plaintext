@@ -4,7 +4,7 @@ import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import { useForm } from "@inertiajs/react";
 import { Transition } from "@headlessui/react";
-import Button, { Variant } from "@/Components/Button";
+import { ButtonSize, ButtonVariant } from "@/Components/Button";
 
 export default function UpdatePasswordForm({ className = "" }) {
     const passwordInput = useRef();
@@ -122,7 +122,12 @@ export default function UpdatePasswordForm({ className = "" }) {
                 </div>
 
                 <div className="flex items-center gap-4">
-                    <Button variant={Variant.Secondary} disabled={processing}>
+                    <Button
+                        variant={ButtonVariant.Secondary}
+                        size={ButtonSize.Medium}
+                        type="submit"
+                        disabled={processing}
+                    >
                         Save
                     </Button>
 

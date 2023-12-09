@@ -3,7 +3,7 @@ import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { Transition } from "@headlessui/react";
-import Button, { Variant } from "@/Components/Button";
+import Button, { ButtonSize, ButtonVariant } from "@/Components/Button";
 
 export default function UpdateProfileInformation({
     mustVerifyEmail,
@@ -94,7 +94,8 @@ export default function UpdateProfileInformation({
 
                 <div className="flex items-center gap-4">
                     <Button
-                        variant={Variant.Secondary}
+                        variant={ButtonVariant.Secondary}
+                        size={ButtonSize.Medium}
                         type="submit"
                         disabled={processing}
                     >

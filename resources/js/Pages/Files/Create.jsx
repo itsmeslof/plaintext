@@ -1,4 +1,4 @@
-import Button, { Variant } from "@/Components/Button";
+import Button, { ButtonSize, ButtonVariant } from "@/Components/Button";
 import InputLabel from "@/Components/InputLabel";
 import SelectInput from "@/Components/SelectInput";
 import TextInput from "@/Components/TextInput";
@@ -89,7 +89,8 @@ export default function Create() {
                             </SelectInput>
                         </div>
                         <Button
-                            variant={Variant.Primary}
+                            variant={ButtonVariant.Primary}
+                            size={ButtonSize.Medium}
                             onClick={handleSubmit}
                         >
                             Save &amp; Create File
