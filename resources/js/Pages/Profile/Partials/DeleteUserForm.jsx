@@ -4,7 +4,7 @@ import InputLabel from "@/Components/InputLabel";
 import Modal from "@/Components/Modal";
 import TextInput from "@/Components/TextInput";
 import { useForm } from "@inertiajs/react";
-import Button, { ButtonVariant } from "@/Components/Button";
+import Button, { ButtonSize, ButtonVariant } from "@/Components/Button";
 
 export default function DeleteUserForm({ className = "" }) {
     const [confirmingUserDeletion, setConfirmingUserDeletion] = useState(false);

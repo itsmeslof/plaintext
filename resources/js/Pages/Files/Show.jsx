@@ -1,10 +1,9 @@
-import CustomLink from "@/Components/CustomLink";
+import Link, { LinkSize, LinkVariant } from "@/Components/Link";
+import ContentLink from "@/Components/Links/ContentLink";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
 export default function Show({ auth, file, mdRenderedHtml }) {
-    const fileData = file.data;
-
     return (
         <AuthenticatedLayout>
             <Head title="Dashboard" />
@@ -12,22 +11,32 @@ export default function Show({ auth, file, mdRenderedHtml }) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <h2 className="text-xl font-semibold text-gray-900">
-                        {fileData.name}
-                        {fileData.extension}
+                        {file.name}
+                        {file.extension}
                     </h2>
                     <div className="mt-2 flex items-center space-x-4">
-                        <p>Created {fileData.created_at_humanized}</p>
-                        <p>Updated {fileData.updated_at_humanized}</p>
+                        <p>Created {file.created_at_humanized}</p>
+                        <p>Updated {file.updated_at_humanized}</p>
+                        <p className="bg-gray-300 rounded-full px-2 py-1">
+                            Visibility:{" "}
+                            <span className="capitalize">
+                                {file.visibility}
+                            </span>
+                        </p>
                     </div>
                     <div className="mt-2 flex items-center space-x-4">
-                        <CustomLink href={route("files.edit", fileData.hashid)}>
+                        <Link
+                            variant={LinkVariant.Content}
+                            size={LinkSize.Large}
+                            href={route("files.edit", file.hashid)}
+                        >
                             Edit File
-                        </CustomLink>
+                        </Link>
                     </div>
                     <div className="mt-6 bg-white rounded-lg shadow p-4">
-                        {fileData.extension === ".txt" ? (
+                        {file.extension === ".txt" ? (
                             <pre className="whitespace-pre-wrap">
-                                {fileData.contents}
+                                {file.contents}
                             </pre>
                         ) : (
                             <div

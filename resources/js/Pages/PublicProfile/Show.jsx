@@ -1,7 +1,6 @@
-import CustomLink from "@/Components/CustomLink";
-import SecondaryLinkButton from "@/Components/SecondaryLinkButton";
+import Link, { LinkSize, LinkVariant } from "@/Components/Link";
 import GuestLayout from "@/Layouts/GuestLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head } from "@inertiajs/react";
 
 export default function Show({ auth, publicUser }) {
     return (
@@ -11,13 +10,17 @@ export default function Show({ auth, publicUser }) {
             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div className="flex items-center space-x-6">
                     {auth.user ? (
-                        <SecondaryLinkButton href={route("dashboard")}>
+                        <Link
+                            variant={LinkVariant.SecondaryButton}
+                            size={LinkSize.Button.Medium}
+                            href={route("dashboard")}
+                        >
                             <span>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24"
                                     fill="currentColor"
-                                    class="w-6 h-6"
+                                    class="w-6 h-6 mr-2"
                                 >
                                     <path
                                         fill-rule="evenodd"
@@ -27,10 +30,8 @@ export default function Show({ auth, publicUser }) {
                                 </svg>
                             </span>
                             My Dashboard
-                        </SecondaryLinkButton>
-                    ) : (
-                        <></>
-                    )}
+                        </Link>
+                    ) : null}
                     <p className="text-gray-700 inline-flex gap-2">
                         <span>
                             <svg
@@ -46,18 +47,20 @@ export default function Show({ auth, publicUser }) {
                                 />
                             </svg>
                         </span>
-                        You are viewing {user.username}'s public profile
+                        You are viewing {publicUser.username}'s public profile
                     </p>
                 </div>
 
                 <div className="mt-12 bg-white overflow-hidden shadow-sm sm:rounded-lg flex flex-col space-y-2 p-6">
-                    {user.public_files.map((file) => (
-                        <CustomLink
+                    {publicUser.public_files.map((file) => (
+                        <Link
                             key={file.id}
+                            variant={LinkVariant.Content}
+                            size={LinkSize.Large}
                             href={route("files.show", file.hashid)}
                         >
                             {file.name}
-                        </CustomLink>
+                        </Link>
                     ))}
                 </div>
             </div>

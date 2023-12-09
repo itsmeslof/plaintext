@@ -1,5 +1,5 @@
+import Link, { LinkSize, LinkVariant } from "./Link";
 import NavLink from "./NavLink";
-import PrimaryLinkButton from "./PrimaryLinkButton";
 
 export default function DashboardNavbar() {
     return (
@@ -20,9 +20,13 @@ export default function DashboardNavbar() {
                         Manage Account
                     </NavLink>
                 </div>
-                <PrimaryLinkButton href={route("files.create")}>
+                <Link
+                    variant={LinkVariant.PrimaryButton}
+                    size={LinkSize.Button.Medium}
+                    href={route("files.create")}
+                >
                     Create A New File
-                </PrimaryLinkButton>
+                </Link>
             </nav>
         </div>
     );

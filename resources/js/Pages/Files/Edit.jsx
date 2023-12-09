@@ -6,6 +6,7 @@ import { Transition } from "@headlessui/react";
 import { Head, useForm } from "@inertiajs/react";
 import ContentLink from "@/Components/Links/ContentLink";
 import Button, { ButtonSize, ButtonVariant } from "@/Components/Button";
+import Link, { LinkSize, LinkVariant } from "@/Components/Link";
 
 export default function Edit({ flash, file }) {
     const {
@@ -34,9 +35,13 @@ export default function Edit({ flash, file }) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                     <div className="space-y-1">
-                        <ContentLink href={route("files.show", file.hashid)}>
+                        <Link
+                            variant={LinkVariant.Content}
+                            size={LinkSize.Large}
+                            href={route("files.show", file.hashid)}
+                        >
                             Cancel
-                        </ContentLink>
+                        </Link>
                         <h2 className="text-lg font-medium text-gray-900">
                             Edit File
                         </h2>
