@@ -4,6 +4,7 @@ import TextInput from "@/Components/TextInput";
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { Transition } from "@headlessui/react";
 import Button, { ButtonSize, ButtonVariant } from "@/Components/Button";
+import Text, { TextElement, TextVariant } from "@/Components/Text";
 
 export default function UpdateProfileInformation({
     mustVerifyEmail,
@@ -27,13 +28,17 @@ export default function UpdateProfileInformation({
     return (
         <section className={className}>
             <header>
-                <h2 className="text-lg font-medium text-gray-900">
+                <Text variant={TextVariant.SectionTitle} as={TextElement.H2}>
                     Profile Information
-                </h2>
+                </Text>
 
-                <p className="mt-1 text-sm text-gray-600">
-                    Update your account's profile information and email address.
-                </p>
+                <Text
+                    variant={TextVariant.Content}
+                    as={TextElement.P}
+                    extraClasses="mt-1"
+                >
+                    Update your username and email address.
+                </Text>
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6">

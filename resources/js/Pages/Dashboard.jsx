@@ -1,3 +1,4 @@
+import Text, { TextElement, TextVariant } from "@/Components/Text";
 import Link, { LinkSize, LinkVariant } from "@/Components/Link";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
@@ -9,9 +10,10 @@ export default function Dashboard({ auth, recentFiles }) {
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <h1 className="text-gray-800 text-2xl font-semibold">
+                    <Text variant={TextVariant.PageTitle} as={TextElement.H1}>
                         Recent Files
-                    </h1>
+                    </Text>
+
                     <div className="mt-4 bg-white overflow-hidden shadow-sm sm:rounded-lg flex flex-col space-y-2 p-6">
                         {recentFiles.map((file) => (
                             <Link

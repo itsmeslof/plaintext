@@ -4,9 +4,9 @@ import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Transition } from "@headlessui/react";
 import { Head, useForm } from "@inertiajs/react";
-import ContentLink from "@/Components/Links/ContentLink";
 import Button, { ButtonSize, ButtonVariant } from "@/Components/Button";
 import Link, { LinkSize, LinkVariant } from "@/Components/Link";
+import Text, { TextElement, TextVariant } from "@/Components/Text";
 
 export default function Edit({ flash, file }) {
     const {
@@ -42,9 +42,12 @@ export default function Edit({ flash, file }) {
                         >
                             Cancel
                         </Link>
-                        <h2 className="text-lg font-medium text-gray-900">
+                        <Text
+                            variant={TextVariant.PageTitle}
+                            as={TextElement.H1}
+                        >
                             Edit File
-                        </h2>
+                        </Text>
                     </div>
                     <Transition
                         show={recentlySuccessful}

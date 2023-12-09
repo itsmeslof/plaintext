@@ -1,5 +1,5 @@
 import Link, { LinkSize, LinkVariant } from "@/Components/Link";
-import ContentLink from "@/Components/Links/ContentLink";
+import Text, { TextElement, TextVariant } from "@/Components/Text";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
@@ -10,19 +10,27 @@ export default function Show({ auth, file, mdRenderedHtml }) {
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <h2 className="text-xl font-semibold text-gray-900">
+                    <Text variant={TextVariant.PageTitle} as={TextElement.H1}>
                         {file.name}
                         {file.extension}
-                    </h2>
+                    </Text>
                     <div className="mt-2 flex items-center space-x-4">
-                        <p>Created {file.created_at_humanized}</p>
-                        <p>Updated {file.updated_at_humanized}</p>
-                        <p className="bg-gray-300 rounded-full px-2 py-1">
+                        <Text variant={TextVariant.Content} as={TextElement.P}>
+                            Created {file.created_at_humanized}
+                        </Text>
+                        <Text variant={TextVariant.Content} as={TextElement.P}>
+                            Update {file.updated_at_humanized}
+                        </Text>
+                        <Text
+                            variant={TextVariant.Content}
+                            as={TextElement.P}
+                            extraClasses="rounded-full px-2 py-1 bg-gray-300"
+                        >
                             Visibility:{" "}
                             <span className="capitalize">
                                 {file.visibility}
                             </span>
-                        </p>
+                        </Text>
                     </div>
                     <div className="mt-2 flex items-center space-x-4">
                         <Link
