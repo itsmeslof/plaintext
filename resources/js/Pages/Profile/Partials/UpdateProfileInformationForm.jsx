@@ -33,7 +33,7 @@ export default function UpdateProfileInformation({
                 </Text>
 
                 <Text
-                    variant={TextVariant.Content}
+                    variant={TextVariant.Small}
                     as={TextElement.P}
                     extraClasses="mt-1"
                 >

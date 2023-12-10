@@ -5,6 +5,7 @@ import TextInput from "@/Components/TextInput";
 import { useForm } from "@inertiajs/react";
 import { Transition } from "@headlessui/react";
 import Button, { ButtonSize, ButtonVariant } from "@/Components/Button";
+import Text, { TextElement, TextVariant } from "@/Components/Text";
 
 export default function UpdatePasswordForm({ className = "" }) {
     const passwordInput = useRef();
@@ -47,14 +48,18 @@ export default function UpdatePasswordForm({ className = "" }) {
     return (
         <section className={className}>
             <header>
-                <h2 className="text-lg font-medium text-gray-900">
+                <Text variant={TextVariant.SectionTitle} as={TextElement.H2}>
                     Update Password
-                </h2>
+                </Text>
 
-                <p className="mt-1 text-sm text-gray-600">
+                <Text
+                    variant={TextVariant.Small}
+                    as={TextElement.P}
+                    extraClasses="mt-1"
+                >
                     Ensure your account is using a long, random password to stay
                     secure.
-                </p>
+                </Text>
             </header>
 
             <form onSubmit={updatePassword} className="mt-6 space-y-6">

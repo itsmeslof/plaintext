@@ -1,6 +1,7 @@
 import Button, { ButtonSize, ButtonVariant } from "@/Components/Button";
 import InputLabel from "@/Components/InputLabel";
 import SelectInput from "@/Components/SelectInput";
+import Text, { TextElement, TextVariant } from "@/Components/Text";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
@@ -23,9 +24,9 @@ export default function Create() {
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-                    <h2 className="text-lg font-medium text-gray-900">
+                    <Text variant={TextVariant.PageTitle} as={TextElement.H1}>
                         Create A New File
-                    </h2>
+                    </Text>
                     {hasErrors && (
                         <div className="bg-rose-100 border-l-4 border-rose-300 rounded p-4">
                             <ul>
