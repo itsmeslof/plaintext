@@ -1,3 +1,4 @@
+import Badge, { BadgeVariant } from "@/Components/Badge";
 import Link, { LinkSize, LinkVariant } from "@/Components/Link";
 import Text, { TextElement, TextVariant } from "@/Components/Text";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
@@ -21,16 +22,12 @@ export default function Show({ auth, file, mdRenderedHtml }) {
                         <Text variant={TextVariant.Content} as={TextElement.P}>
                             Update {file.updated_at_humanized}
                         </Text>
-                        <Text
-                            variant={TextVariant.Content}
-                            as={TextElement.P}
-                            extraClasses="rounded-full px-2 py-1 bg-gray-300"
-                        >
+                        <Badge variant={BadgeVariant.Info}>
                             Visibility:{" "}
                             <span className="capitalize">
                                 {file.visibility}
                             </span>
-                        </Text>
+                        </Badge>
                     </div>
                     <div className="mt-2 flex items-center space-x-4">
                         <Link
