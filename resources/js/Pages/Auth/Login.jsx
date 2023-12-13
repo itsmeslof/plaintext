@@ -6,6 +6,7 @@ import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
 import Button, { ButtonSize, ButtonVariant } from "@/Components/Button";
+import Container, { ContainerVariant } from "@/Components/Container";
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -36,7 +37,10 @@ export default function Login({ status, canResetPassword }) {
                 </div>
             )}
 
-            <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 flex justify-center">
+            <Container
+                variant={ContainerVariant.MaxWidth}
+                extraClasses="flex justify-center"
+            >
                 <div className="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
                     <form onSubmit={submit}>
                         <div>
@@ -47,7 +51,7 @@ export default function Login({ status, canResetPassword }) {
                                 type="email"
                                 name="email"
                                 value={data.email}
-                                className="mt-1 block w-full"
+                                extraClasses="block w-full"
                                 autoComplete="username"
                                 isFocused={true}
                                 onChange={(e) =>
@@ -69,7 +73,7 @@ export default function Login({ status, canResetPassword }) {
                                 type="password"
                                 name="password"
                                 value={data.password}
-                                className="mt-1 block w-full"
+                                extraClasses="block w-full"
                                 autoComplete="current-password"
                                 onChange={(e) =>
                                     setData("password", e.target.value)
@@ -119,7 +123,7 @@ export default function Login({ status, canResetPassword }) {
                         </div>
                     </form>
                 </div>
-            </div>
+            </Container>
         </GuestLayout>
     );
 }

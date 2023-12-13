@@ -1,3 +1,4 @@
+import Container, { ContainerVariant } from "@/Components/Container";
 import Link, { LinkSize, LinkVariant } from "@/Components/Link";
 import GuestLayout from "@/Layouts/GuestLayout";
 import { Head } from "@inertiajs/react";
@@ -7,7 +8,7 @@ export default function Show({ auth, publicUser }) {
         <GuestLayout>
             <Head title="Dashboard" />
 
-            <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <Container variant={ContainerVariant.MaxWidth}>
                 <div className="flex items-center space-x-6">
                     {auth.user ? (
                         <Link
@@ -63,7 +64,7 @@ export default function Show({ auth, publicUser }) {
                         </Link>
                     ))}
                 </div>
-            </div>
+            </Container>
         </GuestLayout>
     );
 }

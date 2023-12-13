@@ -5,6 +5,7 @@ import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
 import Button, { ButtonSize, ButtonVariant } from "@/Components/Button";
+import Container, { ContainerVariant } from "@/Components/Container";
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -30,7 +31,10 @@ export default function Register() {
         <GuestLayout>
             <Head title="Register" />
 
-            <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 flex justify-center">
+            <Container
+                variant={ContainerVariant.MaxWidth}
+                extraClasses="flex justify-center"
+            >
                 <div className="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
                     <form onSubmit={submit}>
                         <div>
@@ -40,7 +44,7 @@ export default function Register() {
                                 id="name"
                                 name="name"
                                 value={data.name}
-                                className="mt-1 block w-full"
+                                extraClasses="block w-full"
                                 autoComplete="name"
                                 isFocused={true}
                                 onChange={(e) =>
@@ -63,7 +67,7 @@ export default function Register() {
                                 type="email"
                                 name="email"
                                 value={data.email}
-                                className="mt-1 block w-full"
+                                extraClasses="block w-full"
                                 autoComplete="username"
                                 onChange={(e) =>
                                     setData("email", e.target.value)
@@ -85,7 +89,7 @@ export default function Register() {
                                 type="password"
                                 name="password"
                                 value={data.password}
-                                className="mt-1 block w-full"
+                                extraClasses="block w-full"
                                 autoComplete="new-password"
                                 onChange={(e) =>
                                     setData("password", e.target.value)
@@ -110,7 +114,7 @@ export default function Register() {
                                 type="password"
                                 name="password_confirmation"
                                 value={data.password_confirmation}
-                                className="mt-1 block w-full"
+                                extraClasses="block w-full"
                                 autoComplete="new-password"
                                 onChange={(e) =>
                                     setData(
@@ -147,7 +151,7 @@ export default function Register() {
                         </div>
                     </form>
                 </div>
-            </div>
+            </Container>
         </GuestLayout>
     );
 }
