@@ -1,9 +1,10 @@
+import Container, { ContainerVariant } from "./Container";
 import Link, { LinkSize, LinkVariant } from "./Link";
 import NavLink from "./NavLink";
 
 export default function DashboardNavbar() {
     return (
-        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <Container variant={ContainerVariant.MaxWidth}>
             <nav className="flex justify-between">
                 <div className="flex items-center space-x-4">
                     <NavLink
@@ -28,6 +29,6 @@ export default function DashboardNavbar() {
                     Create A New File
                 </Link>
             </nav>
-        </div>
+        </Container>
     );
 }
