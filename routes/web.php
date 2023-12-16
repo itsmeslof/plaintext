@@ -3,9 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,8 +26,9 @@ Route::middleware('auth')->prefix('files')->as('files.')->group(function () {
     Route::get('/create', [FileController::class, 'create'])->name('create');
     Route::get('/{file}', [FileController::class, 'show'])->name('show');
     Route::get('/{file}/edit', [FileController::class, 'edit'])->name('edit');
-    Route::patch("/{file}", [FileController::class, 'update'])->name('update');
+    Route::patch('/{file}', [FileController::class, 'update'])->name('update');
     Route::post('/', [FileController::class, 'store'])->name('store');
+    Route::get('/', [FileController::class, 'index'])->name('index');
 });
 
 Route::middleware('auth')->group(function () {

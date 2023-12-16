@@ -14,9 +14,15 @@ class FileController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $user = $request->user();
+
+        return Inertia::render('Files/Index', [
+            'files' => FileResource::collection(
+                $user->files()->paginate(10)
+            )
+        ]);
     }
 
     /**
@@ -33,7 +39,7 @@ class FileController extends Controller
     public function store(StoreFileRequest $request)
     {
         $validated = $request->validated();
-        $file = $request->user->files()->create($validated);
+        $file = $request->user()->files()->create($validated);
 
         return redirect()->route('files.show', $file);
     }

@@ -13,7 +13,12 @@ export default function DashboardNavbar() {
                     >
                         Dashboard
                     </NavLink>
-                    <NavLink href="/files">My Files</NavLink>
+                    <NavLink
+                        active={route().current("files.index")}
+                        href="/files"
+                    >
+                        My Files
+                    </NavLink>
                     <NavLink
                         active={route().current("profile.edit")}
                         href={route("profile.edit")}

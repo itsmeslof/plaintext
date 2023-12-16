@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\SupportedFileLanguages;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
