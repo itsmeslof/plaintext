@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use App\HashIdOptions;
+use App\ResourceVisibility;
 use App\Traits\HasHashId;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -33,5 +35,10 @@ class File extends Model
     public function getRouteKeyName(): string
     {
         return 'hashid';
+    }
+
+    public function scopePublic(Builder $query): void
+    {
+        $query->where('visibility', ResourceVisibility::PUBLIC);
     }
 }

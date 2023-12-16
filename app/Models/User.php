@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'usename',
         'email',
         'password',
     ];
@@ -47,5 +47,15 @@ class User extends Authenticatable
     public function files(): HasMany
     {
         return $this->hasMany(File::class);
+    }
+
+    public function publicFiles(): HasMany
+    {
+        return $this->files()->public();
+    }
+
+    public function recentFiles(int $limit = 10): HasMany
+    {
+        return $this->files()->latest()->limit($limit);
     }
 }
