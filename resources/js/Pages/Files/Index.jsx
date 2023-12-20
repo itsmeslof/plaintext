@@ -1,5 +1,6 @@
 import Container, { ContainerVariant } from "@/Components/Container";
 import Link, { LinkSize, LinkVariant } from "@/Components/Link";
+import Pagination from "@/Components/Pagination";
 import Text, { TextElement, TextVariant } from "@/Components/Text";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
@@ -18,6 +19,7 @@ export default function Index({ files }) {
                 </Text>
 
                 <FilesTable files={files.data} />
+                <Pagination paginator={files} />
             </Container>
         </AuthenticatedLayout>
     );
