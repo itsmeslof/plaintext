@@ -6,6 +6,7 @@ use App\Http\Requests\StoreFileRequest;
 use App\Http\Resources\FileResource;
 use App\Markdown\CustomMarkdownRenderer;
 use App\Models\File;
+use App\Services\FileService as FileService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -14,14 +15,21 @@ class FileController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request, FileService $fileService)
     {
         $user = $request->user();
 
-        return Inertia::render('Files/Index', [
-            'files' => FileResource::collection(
-                $user->files()->paginate(10)
+        $files = $fileService->index(
+            user: $user,
+            queryParams: $request->only(
+                'query',
+                'visibility',
+                'order_by'
             )
+        )->paginate(10)->withQueryString();
+
+        return Inertia::render('Files/Index', [
+            'files' => FileResource::collection($files)
         ]);
     }
 

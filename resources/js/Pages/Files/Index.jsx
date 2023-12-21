@@ -7,7 +7,7 @@ import SelectInput from "@/Components/SelectInput";
 import Text, { TextElement, TextVariant } from "@/Components/Text";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { OrderFilter, ResourceVisibility, valueOrDefault } from "@/utils";
+import { OrderByFilter, ResourceVisibility, valueOrDefault } from "@/utils";
 import { Head, useForm } from "@inertiajs/react";
 
 export default function Index({ files }) {
@@ -41,10 +41,10 @@ function Filters() {
             allowedValues: ["all", ...Object.values(ResourceVisibility)],
             defaultValue: "all",
         }),
-        order: valueOrDefault({
-            value: queryParams.get("order") || "newest",
-            allowedValues: Object.values(OrderFilter),
-            defaultValue: OrderFilter.Newest,
+        order_by: valueOrDefault({
+            value: queryParams.get("order_by") || "newest",
+            allowedValues: Object.values(OrderByFilter),
+            defaultValue: OrderByFilter.Newest,
         }),
     });
 
@@ -66,11 +66,11 @@ function Filters() {
 
     function handleOrderChange(e) {
         setData(
-            "order",
+            "order_by",
             valueOrDefault({
                 value: e.target.value,
-                allowedValues: Object.values(OrderFilter),
-                defaultValue: OrderFilter.Newest,
+                allowedValues: Object.values(OrderByFilter),
+                defaultValue: OrderByFilter.Newest,
             })
         );
     }
@@ -115,19 +115,23 @@ function Filters() {
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="order" value="Order Results" />
+                    <InputLabel htmlFor="order_by" value="Order Results" />
                     <SelectInput
-                        id="order"
-                        name="order"
+                        id="order_by"
+                        name="order_by"
                         type="text"
                         extraClasses="min-w-[160px]"
-                        value={data.order}
+                        value={data.order_by}
                         onChange={handleOrderChange}
                     >
-                        <option value={OrderFilter.Newest}>Newest First</option>
-                        <option value={OrderFilter.Oldest}>Oldest First</option>
-                        <option value={OrderFilter.AtoZ}>A-Z</option>
-                        <option value={OrderFilter.ZtoA}>Z-A</option>
+                        <option value={OrderByFilter.Newest}>
+                            Newest First
+                        </option>
+                        <option value={OrderByFilter.Oldest}>
+                            Oldest First
+                        </option>
+                        <option value={OrderByFilter.AtoZ}>A-Z</option>
+                        <option value={OrderByFilter.ZtoA}>Z-A</option>
                     </SelectInput>
                 </div>
 

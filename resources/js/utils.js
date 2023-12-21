@@ -9,7 +9,7 @@ export const ResourceVisibility = {
     Public: "public",
 };
 
-export const OrderFilter = {
+export const OrderByFilter = {
     Newest: "newest",
     Oldest: "oldest",
     AtoZ: "atoz",
