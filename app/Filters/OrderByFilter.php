@@ -8,7 +8,7 @@ class OrderByFilter
 {
     private array $handlers = [];
 
-    public function __construct(public string|null $orderBy)
+    public function __construct(public string|null $orderBy, public string $default)
     {
         $this->handlers = [
             'newest' => fn (Builder $builder) => $builder->latest(),
@@ -27,9 +27,8 @@ class OrderByFilter
      */
     public function apply(Builder $builder): void
     {
-        if (!$this->orderBy) return;
-
-        $handler = $this->handlers[$this->orderBy] ?? null;
+        $defaultHandler = $this->handlers[$this->default] ?? null;
+        $handler = $this->handlers[$this->orderBy] ?? $defaultHandler;
 
         if ($handler) $handler(...)($builder);
     }

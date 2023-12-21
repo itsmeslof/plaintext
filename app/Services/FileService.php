@@ -30,7 +30,10 @@ class FileService
                 column: 'name'
             ),
             new VisibilityFilter(visibility: $queryParams['visibility'] ?? null),
-            new OrderByFilter(orderBy: $queryParams['order_by'] ?? null),
+            new OrderByFilter(
+                orderBy: $queryParams['order_by'] ?? null,
+                default: 'newest',
+            ),
         );
 
         return $filesQuery;
