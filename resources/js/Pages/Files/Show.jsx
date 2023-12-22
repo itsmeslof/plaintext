@@ -5,7 +5,7 @@ import Text, { TextElement, TextVariant } from "@/Components/Text";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
-export default function Show({ auth, file, mdRenderedHtml }) {
+export default function Show({ file, mdRenderedHtml }) {
     return (
         <AuthenticatedLayout>
             <Head title="Dashboard" />
@@ -37,11 +37,7 @@ export default function Show({ auth, file, mdRenderedHtml }) {
                     </Link>
                 </div>
                 <div className="mt-6 bg-white rounded-lg shadow p-4">
-                    {file.extension === ".txt" ? (
-                        <pre className="whitespace-pre-wrap">
-                            {file.contents}
-                        </pre>
-                    ) : (
+                    {file.extension === ".md" ? (
                         <div
                             id="markdownOutput"
                             className="prose max-w-none"
@@ -49,6 +45,10 @@ export default function Show({ auth, file, mdRenderedHtml }) {
                                 __html: mdRenderedHtml,
                             }}
                         ></div>
+                    ) : (
+                        <pre className="whitespace-pre-wrap">
+                            {file.contents}
+                        </pre>
                     )}
                 </div>
             </Container>
