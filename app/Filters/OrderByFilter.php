@@ -30,6 +30,6 @@ class OrderByFilter
         $defaultHandler = $this->handlers[$this->default] ?? null;
         $handler = $this->handlers[$this->orderBy] ?? $defaultHandler;
 
-        if ($handler) $handler(...)($builder);
+        if ($handler) $handler($builder);
     }
 }
