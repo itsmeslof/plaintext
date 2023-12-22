@@ -1,10 +1,13 @@
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
-import { Link, useForm, usePage } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 import { Transition } from "@headlessui/react";
 import Button, { ButtonSize, ButtonVariant } from "@/Components/Button";
 import Text, { TextElement, TextVariant } from "@/Components/Text";
+import SelectInput from "@/Components/SelectInput";
+import { valueOrDefault } from "@/utils";
+import Link, { LinkVariant } from "@/Components/Link";
 
 export default function UpdateProfileInformation({
     mustVerifyEmail,
@@ -17,6 +20,11 @@ export default function UpdateProfileInformation({
         useForm({
             username: user.username,
             email: user.email,
+            profile_visibility: valueOrDefault({
+                value: user.profile_visibility,
+                allowedValues: ["private", "public"],
+                defaultValue: "private",
+            }),
         });
 
     const submit = (e) => {
@@ -42,7 +50,7 @@ export default function UpdateProfileInformation({
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6">
-                <div>
+                <div className="max-w-xl">
                     <InputLabel htmlFor="username" value="Username" />
 
                     <TextInput
@@ -58,7 +66,7 @@ export default function UpdateProfileInformation({
                     <InputError className="mt-2" message={errors.username} />
                 </div>
 
-                <div>
+                <div className="max-w-xl">
                     <InputLabel htmlFor="email" value="Email" />
 
                     <TextInput
@@ -77,12 +85,12 @@ export default function UpdateProfileInformation({
                 {mustVerifyEmail && user.email_verified_at === null && (
                     <div>
                         <p className="text-sm mt-2 text-gray-800">
-                            Your email address is unverified.
+                            Your email address is unverified.{" "}
                             <Link
                                 href={route("verification.send")}
                                 method="post"
                                 as="button"
-                                className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                variant={LinkVariant.Content}
                             >
                                 Click here to re-send the verification email.
                             </Link>
@@ -96,6 +104,78 @@ export default function UpdateProfileInformation({
                         )}
                     </div>
                 )}
+
+                <div className="flex flex-col items-start">
+                    <InputLabel
+                        htmlFor="profile_visibility"
+                        value="Profile Visibility"
+                    />
+
+                    <SelectInput
+                        id="profile_visibility"
+                        name="profile_visibility"
+                        extraClasses="min-w-[160px]"
+                        value={data.profile_visibility}
+                        onChange={(e) =>
+                            setData(
+                                "profile_visibility",
+                                valueOrDefault({
+                                    value: e.target.value,
+                                    allowedValues: ["private", "public"],
+                                    defaultValue: "private",
+                                })
+                            )
+                        }
+                    >
+                        <option value="private">Private</option>
+                        <option value="public">Public</option>
+                    </SelectInput>
+
+                    <InputError
+                        className="mt-2"
+                        message={errors.profile_visibility}
+                    />
+
+                    <div className="mt-4 bg-gray-100 border-l-4 rounded border-gray-300 p-4">
+                        <ul className="list-disc list-inside">
+                            <li>
+                                <Text
+                                    variant={TextVariant.Content}
+                                    as={TextElement.Span}
+                                >
+                                    Making your profile{" "}
+                                    <span className="font-bold text-gray-800">
+                                        Public
+                                    </span>{" "}
+                                    will allow anyone to view your profile,
+                                    including all of your public files.
+                                </Text>
+                            </li>
+                            <li>
+                                <Text
+                                    variant={TextVariant.Content}
+                                    as={TextElement.Span}
+                                >
+                                    Making your profile{" "}
+                                    <span className="font-bold text-gray-800">
+                                        Private
+                                    </span>{" "}
+                                    will not allow anyone to view your profile,
+                                    but they can still view any{" "}
+                                    <span className="font-bold text-gray-800">
+                                        Public
+                                    </span>{" "}
+                                    or{" "}
+                                    <span className="font-bold text-gray-800">
+                                        Unlisted
+                                    </span>{" "}
+                                    files with a direct link. Your username will
+                                    be hidden.
+                                </Text>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
                 <div className="flex items-center gap-4">
                     <Button

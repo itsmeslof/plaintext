@@ -23,7 +23,7 @@ export default function DashboardNavbar() {
                         active={route().current("profile.edit")}
                         href={route("profile.edit")}
                     >
-                        Manage Account
+                        Account Settings
                     </NavLink>
                 </div>
                 <Link

@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublicProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +30,10 @@ Route::middleware('auth')->prefix('files')->as('files.')->group(function () {
     Route::patch('/{file}', [FileController::class, 'update'])->name('update');
     Route::post('/', [FileController::class, 'store'])->name('store');
     Route::get('/', [FileController::class, 'index'])->name('index');
+});
+
+Route::prefix('/u')->as('publicProfile.')->group(function () {
+    Route::get('/{user:username}', [PublicProfileController::class, 'show'])->name('show');
 });
 
 Route::middleware('auth')->group(function () {

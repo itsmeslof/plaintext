@@ -4,7 +4,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import Container, { ContainerVariant } from "@/Components/Container";
 
-export default function Dashboard({ auth, recentFiles }) {
+export default function Dashboard({ recentFiles }) {
     return (
         <AuthenticatedLayout>
             <Head title="Dashboard" />
