@@ -96,7 +96,6 @@ function Filters() {
                     <SelectInput
                         id="visibility"
                         name="visibility"
-                        type="text"
                         extraClasses="min-w-[160px]"
                         value={data.visibility}
                         onChange={handleVisibilityChange}
