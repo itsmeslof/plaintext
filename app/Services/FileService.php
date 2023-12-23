@@ -29,10 +29,12 @@ class FileService
                 searchQuery: $queryParams['query'] ?? null,
                 column: 'name'
             ),
-            new VisibilityFilter(visibility: $queryParams['visibility'] ?? null),
+            new VisibilityFilter(
+                visibility: $queryParams['visibility'] ?? null
+            ),
             new OrderByFilter(
                 orderBy: $queryParams['order_by'] ?? null,
-                default: 'newest',
+                defaultValue: 'newest',
             ),
         );
 
