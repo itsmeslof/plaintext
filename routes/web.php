@@ -3,8 +3,10 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublicProfile\FileController as PublicProfileFileController;
 use App\Http\Controllers\PublicProfileController;
 use Illuminate\Support\Facades\Route;
+use League\CommonMark\Node\Inline\Newline;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +20,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect()->route('dashboard');
-});
+    return 'Home';
+    // return redirect()->route('dashboard');
+})->name('home');
 
 Route::middleware('auth')->get('/dashboard', DashboardController::class)->name('dashboard');
 
@@ -32,8 +35,9 @@ Route::middleware('auth')->prefix('files')->as('files.')->group(function () {
     Route::get('/', [FileController::class, 'index'])->name('index');
 });
 
-Route::prefix('/u')->as('publicProfile.')->group(function () {
-    Route::get('/{user:username}', [PublicProfileController::class, 'show'])->name('show');
+Route::prefix('/u/{user:username}')->as('publicProfile.')->group(function () {
+    Route::get('/', [PublicProfileController::class, 'show'])->name('show');
+    Route::get('/f/{file}', [PublicProfileFileController::class, 'show'])->name('files.show');
 });
 
 Route::middleware('auth')->group(function () {

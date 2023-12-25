@@ -17,7 +17,6 @@ class PublicUserResource extends JsonResource
         return [
             'username' => $this->username,
             'profile_visibility' => $this->profile_visibility,
-            'public_files' => FileResource::collection($this->whenLoaded('publicFiles')),
         ];
     }
 }

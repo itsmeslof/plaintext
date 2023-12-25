@@ -2,22 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\FileResource;
 use App\Http\Resources\PublicUserResource;
 use App\Models\User;
 use App\ResourceVisibility;
+use App\Services\FileService;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class PublicProfileController extends Controller
 {
-    public function show(User $user)
+    public function show(Request $request, User $user, FileService $fileService)
     {
         abort_if(
-            $user->profile_visibility === ResourceVisibility::PRIVATE,
+            $user->profile_visibility !== ResourceVisibility::PUBLIC,
             404
         );
 
+        $publicFiles = $fileService->indexPublic(
+            user: $user,
+            queryParams: $request->only(
+                'query',
+                'visibility',
+                'order_by'
+            )
+        )->paginate(10)->withQueryString();
+
         return Inertia::render('PublicProfile/Show', [
-            'publicUser' => new PublicUserResource($user->load('publicFiles')),
+            'publicUser' => new PublicUserResource($user),
+            'publicFiles' => FileResource::collection($publicFiles)
         ]);
     }
 }

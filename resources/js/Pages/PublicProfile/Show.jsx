@@ -1,70 +1,191 @@
+import Button, { ButtonSize, ButtonVariant } from "@/Components/Button";
 import Container, { ContainerVariant } from "@/Components/Container";
+import InputLabel from "@/Components/InputLabel";
 import Link, { LinkSize, LinkVariant } from "@/Components/Link";
+import Pagination from "@/Components/Pagination";
+import SelectInput from "@/Components/SelectInput";
+import Text, { TextElement, TextVariant } from "@/Components/Text";
+import TextInput from "@/Components/TextInput";
 import GuestLayout from "@/Layouts/GuestLayout";
-import { Head } from "@inertiajs/react";
+import { OrderByFilter, ResourceVisibility, valueOrDefault } from "@/utils";
+import { Head, useForm } from "@inertiajs/react";
+import HeaderMessage from "./Partials/HeaderMessage";
 
-export default function Show({ auth, publicUser }) {
+export default function Show({ auth, publicUser, publicFiles }) {
     return (
         <GuestLayout>
-            <Head title="Dashboard" />
+            <Head title={`${publicUser.username}'s Profile`} />
 
-            <Container variant={ContainerVariant.MaxWidth}>
-                <div className="flex items-center space-x-6">
-                    {auth.user ? (
-                        <Link
-                            variant={LinkVariant.SecondaryButton}
-                            size={LinkSize.Button.Medium}
-                            href={route("dashboard")}
-                        >
-                            <span>
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 24 24"
-                                    fill="currentColor"
-                                    class="w-6 h-6 mr-2"
-                                >
-                                    <path
-                                        fill-rule="evenodd"
-                                        d="M7.28 7.72a.75.75 0 010 1.06l-2.47 2.47H21a.75.75 0 010 1.5H4.81l2.47 2.47a.75.75 0 11-1.06 1.06l-3.75-3.75a.75.75 0 010-1.06l3.75-3.75a.75.75 0 011.06 0z"
-                                        clip-rule="evenodd"
-                                    />
-                                </svg>
-                            </span>
-                            My Dashboard
-                        </Link>
-                    ) : null}
-                    <p className="text-gray-700 inline-flex gap-2">
-                        <span>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                                class="w-6 h-6"
-                            >
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5.75.75 0 000 1.5z"
-                                    clip-rule="evenodd"
-                                />
-                            </svg>
-                        </span>
-                        You are viewing {publicUser.username}'s public profile
-                    </p>
-                </div>
+            <Container
+                variant={ContainerVariant.MaxWidth}
+                extraClasses="space-y-6"
+            >
+                <HeaderMessage user={auth?.user} publicUser={publicUser} />
 
-                <div className="mt-12 bg-white overflow-hidden shadow-sm sm:rounded-lg flex flex-col space-y-2 p-6">
-                    {publicUser.public_files.map((file) => (
-                        <Link
-                            key={file.id}
-                            variant={LinkVariant.Content}
-                            size={LinkSize.Large}
-                            href={route("files.show", file.hashid)}
-                        >
-                            {file.name}
-                        </Link>
-                    ))}
-                </div>
+                <Text variant={TextVariant.PageTitle} as={TextElement.H1}>
+                    {`${auth?.user?.username}'s Public Files`}
+                </Text>
+
+                <Filters user={publicUser} />
+                <FilesTable files={publicFiles.data} />
+                <Pagination paginator={publicFiles} />
             </Container>
         </GuestLayout>
+    );
+}
+
+function Filters() {
+    const queryParams = new URLSearchParams(window.location.search);
+
+    const { data, setData, get } = useForm({
+        query: queryParams.get("query") || "",
+        visibility: valueOrDefault({
+            value: queryParams.get("visibility") || "all",
+            allowedValues: ["all", ...Object.values(ResourceVisibility)],
+            defaultValue: "all",
+        }),
+        order_by: valueOrDefault({
+            value: queryParams.get("order_by") || "newest",
+            allowedValues: Object.values(OrderByFilter),
+            defaultValue: OrderByFilter.Newest,
+        }),
+    });
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        get(route(route().current(), route().params.user), data);
+    }
+
+    function handleVisibilityChange(e) {
+        setData(
+            "visibility",
+            valueOrDefault({
+                value: e.target.value,
+                allowedValues: ["all", ...Object.values(ResourceVisibility)],
+                defaultValue: "all",
+            })
+        );
+    }
+
+    function handleOrderChange(e) {
+        setData(
+            "order_by",
+            valueOrDefault({
+                value: e.target.value,
+                allowedValues: Object.values(OrderByFilter),
+                defaultValue: OrderByFilter.Newest,
+            })
+        );
+    }
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <div className="flex items-end space-x-4">
+                <div>
+                    <InputLabel htmlFor="query" value="Search by name" />
+                    <TextInput
+                        id="query"
+                        name="query"
+                        type="text"
+                        extraClasses="block"
+                        placeholder="Search..."
+                        value={data.query}
+                        onChange={(e) => setData("query", e.target.value)}
+                    />
+                </div>
+
+                <div>
+                    <InputLabel htmlFor="visibility" value="Visibility" />
+                    <SelectInput
+                        id="visibility"
+                        name="visibility"
+                        extraClasses="min-w-[160px]"
+                        value={data.visibility}
+                        onChange={handleVisibilityChange}
+                    >
+                        <option value="all">All</option>
+                        <option value={ResourceVisibility.Private}>
+                            Private
+                        </option>
+                        <option value={ResourceVisibility.Unlisted}>
+                            Unlisted
+                        </option>
+                        <option value={ResourceVisibility.Public}>
+                            Public
+                        </option>
+                    </SelectInput>
+                </div>
+
+                <div>
+                    <InputLabel htmlFor="order_by" value="Order Results" />
+                    <SelectInput
+                        id="order_by"
+                        name="order_by"
+                        type="text"
+                        extraClasses="min-w-[160px]"
+                        value={data.order_by}
+                        onChange={handleOrderChange}
+                    >
+                        <option value={OrderByFilter.Newest}>
+                            Newest First
+                        </option>
+                        <option value={OrderByFilter.Oldest}>
+                            Oldest First
+                        </option>
+                        <option value={OrderByFilter.AtoZ}>A-Z</option>
+                        <option value={OrderByFilter.ZtoA}>Z-A</option>
+                    </SelectInput>
+                </div>
+
+                <Button
+                    variant={ButtonVariant.Primary}
+                    size={ButtonSize.Medium}
+                    type="submit"
+                >
+                    Apply Filters
+                </Button>
+            </div>
+        </form>
+    );
+}
+
+function FilesTable({ files }) {
+    return (
+        <div className="overflow-hidden rounded-lg w-full shadow">
+            <table className="table-auto w-full">
+                <thead className="bg-gray-50 text-left border-b border-gray-200">
+                    <tr>
+                        <th className="p-4">File Name</th>
+                        <th className="p-4">Visibility</th>
+                        <th className="p-4">Created</th>
+                    </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                    {files.map((file) => (
+                        <tr key={file.hashid} className="hover:bg-gray-50">
+                            <td className="p-4 w-full">
+                                <Link
+                                    key={file.id}
+                                    variant={LinkVariant.Content}
+                                    size={LinkSize.Large}
+                                    href={route("publicProfile.files.show", {
+                                        user: route().params.user,
+                                        file: file.hashid,
+                                    })}
+                                >
+                                    {file.name}
+                                </Link>
+                            </td>
+                            <td className="capitalize p-4 min-w-[12ch]">
+                                {file.visibility}
+                            </td>
+                            <td className="p-4 min-w-[15ch]">
+                                {file.created_at_humanized}
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
     );
 }
