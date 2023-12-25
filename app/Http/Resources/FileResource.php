@@ -20,7 +20,6 @@ class FileResource extends JsonResource
             'contents' => $this->contents,
             'hashid' => $this->hashid,
             'visibility' => $this->visibility,
-            'user' => $this->user_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'created_at_humanized' => $this->created_at->diffForHumans(),
