@@ -4,6 +4,7 @@ import Text, { TextElement, TextVariant } from "@/Components/Text";
 import GuestLayout from "@/Layouts/GuestLayout";
 import { Head } from "@inertiajs/react";
 import HeaderMessage from "../Partials/HeaderMessage";
+import Link, { LinkSize, LinkVariant } from "@/Components/Link";
 
 export default function Show({ auth, publicUser, file, mdRenderedHtml }) {
     return (
@@ -28,6 +29,18 @@ export default function Show({ auth, publicUser, file, mdRenderedHtml }) {
                         Visibility:{" "}
                         <span className="capitalize">{file.visibility}</span>
                     </Badge>
+                </div>
+                <div className="mt-2 flex items-center space-x-4">
+                    <Link
+                        variant={LinkVariant.Content}
+                        size={LinkSize.Large}
+                        href={route("publicProfile.files.raw.show", {
+                            user: publicUser.username,
+                            file: file.hashid,
+                        })}
+                    >
+                        View Raw
+                    </Link>
                 </div>
                 <div className="mt-6 bg-white rounded-lg shadow p-4">
                     {file.extension === ".md" ? (
