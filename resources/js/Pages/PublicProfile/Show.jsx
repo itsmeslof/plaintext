@@ -19,12 +19,12 @@ export default function Show({ auth, publicUser, publicFiles }) {
                 <HeaderMessage user={auth?.user} publicUser={publicUser} />
 
                 <Text variant={TextVariant.PageTitle} as={TextElement.H1}>
-                    {`${auth?.user?.username}'s Public Files`}
+                    {`${publicUser.username}'s Public Files`}
                 </Text>
 
                 <FileSearchFilters
                     submitRoute={route("publicProfile.show", {
-                        user: auth.user.username,
+                        user: publicUser.username,
                     })}
                 />
                 <FilesTable files={publicFiles.data} />

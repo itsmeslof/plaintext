@@ -55,7 +55,7 @@ class FileController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, File $file)
+    public function show(File $file)
     {
         $this->authorize('view', $file);
 

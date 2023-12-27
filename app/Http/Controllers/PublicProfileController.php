@@ -14,8 +14,8 @@ class PublicProfileController extends Controller
 {
     public function show(Request $request, User $user, FileService $fileService)
     {
-        abort_if(
-            $user->profile_visibility !== ResourceVisibility::PUBLIC,
+        abort_unless(
+            $user->profile_visibility === ResourceVisibility::PUBLIC,
             404
         );
 
