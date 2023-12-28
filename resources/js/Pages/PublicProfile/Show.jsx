@@ -59,6 +59,7 @@ function FilesTable({ files }) {
                                     })}
                                 >
                                     {file.name}
+                                    {file.extension}
                                 </Link>
                             </td>
                             <td className="capitalize p-4 min-w-[12ch]">

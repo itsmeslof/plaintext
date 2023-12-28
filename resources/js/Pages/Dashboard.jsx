@@ -45,6 +45,7 @@ function RecentFilesTable({ files }) {
                                     href={route("files.show", file.hashid)}
                                 >
                                     {file.name}
+                                    {file.extension}
                                 </Link>
                             </td>
                             <td className="capitalize p-4 min-w-[12ch]">
