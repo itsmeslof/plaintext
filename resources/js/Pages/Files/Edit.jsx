@@ -1,34 +1,11 @@
-import InputLabel from "@/Components/InputLabel";
-import SelectInput from "@/Components/SelectInput";
-import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Transition } from "@headlessui/react";
-import { Head, useForm } from "@inertiajs/react";
-import Button, { ButtonSize, ButtonVariant } from "@/Components/Button";
+import { Head } from "@inertiajs/react";
 import Link, { LinkSize, LinkVariant } from "@/Components/Link";
 import Text, { TextElement, TextVariant } from "@/Components/Text";
 import Container, { ContainerVariant } from "@/Components/Container";
+import CreateEditForm from "./Partials/CreateEditForm";
 
-export default function Edit({ flash, file }) {
-    const {
-        data,
-        setData,
-        patch,
-        errors,
-        hasErrors,
-        processing,
-        recentlySuccessful,
-    } = useForm({
-        name: file.name || "",
-        extension: file.extension || ".md",
-        visibility: file.visibility || "private",
-        contents: file.contents || "",
-    });
-
-    function handleSubmit() {
-        patch(route("files.update", file.hashid));
-    }
-
+export default function Edit({ file }) {
     return (
         <AuthenticatedLayout>
             <Head title="Dashboard" />
@@ -49,82 +26,8 @@ export default function Edit({ flash, file }) {
                         Edit File
                     </Text>
                 </div>
-                <Transition
-                    show={recentlySuccessful}
-                    enter="transition ease-in-out"
-                    enterFrom="opacity-0"
-                    leave="transition ease-in-out"
-                    leaveTo="opacity-0"
-                >
-                    <div className="bg-teal-100 border-l-4 border-teal-300 rounded p-4">
-                        <p>{flash.status}</p>
-                    </div>
-                </Transition>
-                <div className="flex items-end space-x-4">
-                    <div className="w-1/3">
-                        <InputLabel htmlFor="name" value="File Name" />
 
-                        <TextInput
-                            id="name"
-                            name="name"
-                            type="text"
-                            value={data.name}
-                            onChange={(e) => setData("name", e.target.value)}
-                            extraClasses="block w-full"
-                            placeholder="File Name"
-                            required
-                        />
-                    </div>
-                    <div>
-                        <InputLabel htmlFor="extension" value="Extension" />
-
-                        <SelectInput
-                            id="extension"
-                            name="extension"
-                            extraClasses="min-w-[160px]"
-                            value={data.extension}
-                            onChange={(e) =>
-                                setData("extension", e.target.value)
-                            }
-                        >
-                            <option value=".md">.md</option>
-                            <option value=".txt">.txt</option>
-                        </SelectInput>
-                    </div>
-                    <div>
-                        <InputLabel htmlFor="visibility" value="Visibility" />
-
-                        <SelectInput
-                            id="visibility"
-                            name="visibility"
-                            extraClasses="min-w-[160px]"
-                            value={data.visibility}
-                            onChange={(e) =>
-                                setData("visibility", e.target.value)
-                            }
-                        >
-                            <option value="private">Private</option>
-                            <option value="unlisted">Unlisted</option>
-                            <option value="public">Public</option>
-                        </SelectInput>
-                    </div>
-                    <Button
-                        variant={ButtonVariant.Primary}
-                        size={ButtonSize.Medium}
-                        onClick={handleSubmit}
-                    >
-                        Save File
-                    </Button>
-                </div>
-                <div>
-                    <textarea
-                        spellCheck="false"
-                        placeholder="Start typing..."
-                        className="w-full min-h-[200px] border-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500 bg-white shadow rounded-lg"
-                        value={data.contents}
-                        onChange={(e) => setData("contents", e.target.value)}
-                    ></textarea>
-                </div>
+                <CreateEditForm file={file} />
             </Container>
         </AuthenticatedLayout>
     );
