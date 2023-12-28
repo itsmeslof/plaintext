@@ -53,6 +53,7 @@ class FileService
      * Apply base filters for file queries.
      *
      * @param \Illuminate\Contracts\Database\Eloquent\Builder $builder
+     * @param array $queryParams
      *
      * @return void
      */
