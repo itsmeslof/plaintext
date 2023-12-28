@@ -1,11 +1,6 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\FileController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\PublicProfile\FileController as PublicProfileFileController;
-use App\Http\Controllers\RawFileController;
-use App\Http\Controllers\PublicProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*

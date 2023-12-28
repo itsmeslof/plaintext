@@ -5,24 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\FileResource;
 use App\Models\File;
-use App\Models\User;
-use App\ResourceVisibility;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class RawFileController extends Controller
 {
-    public function __invoke(Request $request, User $user, File $file)
+    public function __invoke(File $file)
     {
-        abort_unless(
-            in_array(
-                $file->visibility,
-                [ResourceVisibility::PUBLIC, ResourceVisibility::UNLISTED]
-            ),
-            404
-        );
+        $this->authorize('view', $file);
 
-        return Inertia::render('PublicProfile/Files/Raw', [
+        return Inertia::render('Files/Raw', [
             'file' => new FileResource($file)
         ]);
     }

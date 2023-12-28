@@ -35,6 +35,15 @@ export default function Show({ file, mdRenderedHtml }) {
                     >
                         Edit File
                     </Link>
+                    <Link
+                        variant={LinkVariant.Content}
+                        size={LinkSize.Large}
+                        href={route("files.raw.show", {
+                            file: file.hashid,
+                        })}
+                    >
+                        View Raw
+                    </Link>
                 </div>
                 <div className="mt-6 bg-white rounded-lg shadow p-4">
                     {file.extension === ".md" ? (

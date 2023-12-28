@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicProfile\FileController;
 use App\Http\Controllers\PublicProfileController;
-use App\Http\Controllers\RawFileController;
+use App\Http\Controllers\PublicProfile\RawFileController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
