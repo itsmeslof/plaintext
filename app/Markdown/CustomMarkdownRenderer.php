@@ -48,8 +48,6 @@ class CustomMarkdownRenderer
     public function render(string $input): MarkdownParseResult
     {
         $result = $this->markdownConverter->convert($input);
-        return new MarkdownParseResult(
-            outputHtml: $result->getContent()
-        );
+        return new MarkdownParseResult(outputHtml: $result->getContent());
     }
 }

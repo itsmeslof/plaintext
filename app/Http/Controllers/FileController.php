@@ -6,7 +6,7 @@ use App\Http\Requests\StoreFileRequest;
 use App\Http\Resources\FileResource;
 use App\Markdown\CustomMarkdownRenderer;
 use App\Models\File;
-use App\Services\FileService as FileService;
+use App\Services\FileService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -59,15 +59,15 @@ class FileController extends Controller
     {
         $this->authorize('view', $file);
 
-        $html = '';
+        $mdRenderedHtml = null;
         if ($file->extension === '.md') {
-            $parseResult = (new CustomMarkdownRenderer())->render($file->contents);
-            $html = $parseResult->outputHtml;
+            $renderer = new CustomMarkdownRenderer();
+            $mdRenderedHtml = $renderer->render(input: $file->contents)->outputHtml;
         }
 
-        return Inertia::render("Files/Show", [
+        return Inertia::render('Files/Show', [
             'file' => new FileResource($file),
-            'mdRenderedHtml' => $html
+            'mdRenderedHtml' => $mdRenderedHtml
         ]);
     }
 
@@ -78,7 +78,7 @@ class FileController extends Controller
     {
         $this->authorize('edit', $file);
 
-        return Inertia::render("Files/Edit", [
+        return Inertia::render('Files/Edit', [
             'file' => new FileResource($file)
         ]);
     }
@@ -93,7 +93,7 @@ class FileController extends Controller
         $validated = $request->validated();
         $file->update($validated);
 
-        return back()->with('status', 'File saved.');
+        return back();
     }
 
     /**
