@@ -22,7 +22,7 @@ class RawFileController extends Controller
             404
         );
 
-        return Inertia::render('PublicProfile/Files/Raw', [
+        return Inertia::render('Files/Raw', [
             'file' => new FileResource($file)
         ]);
     }
