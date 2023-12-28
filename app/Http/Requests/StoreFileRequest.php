@@ -25,7 +25,7 @@ class StoreFileRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'extension' => ['required', Rule::in(['.md', '.txt'])],
-            'contents' => ['required', 'string'],
+            'contents' => ['required', 'string', 'max:65535'],
             'visibility' => ['required', Rule::in(['private', 'unlisted', 'public'])],
         ];
     }
