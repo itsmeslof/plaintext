@@ -29,7 +29,7 @@ export default function CreateEditForm({ file = null }) {
         }),
         visibility: valueOrDefault({
             value: file?.visibility || "private",
-            allowedValues: ["private", "unlisted", "public"],
+            allowedValues: Object.values(ResourceVisibility),
             defaultValue: "private",
         }),
         contents: file?.contents || "",
@@ -65,8 +65,8 @@ export default function CreateEditForm({ file = null }) {
             "visibility",
             valueOrDefault({
                 value: e.target.value,
-                allowedValues: ["all", ...Object.values(ResourceVisibility)],
-                defaultValue: "all",
+                allowedValues: Object.values(ResourceVisibility),
+                defaultValue: "private",
             })
         );
     }
