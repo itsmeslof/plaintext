@@ -18,6 +18,7 @@ class UserResource extends JsonResource
             'username' => $this->username,
             'email' => $this->email,
             'profile_visibility' => $this->profile_visibility,
+            'is_admin' => $this->is_admin,
             'files' => FileResource::collection($this->whenLoaded('files')),
         ];
     }

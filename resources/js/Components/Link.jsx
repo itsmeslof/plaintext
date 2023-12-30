@@ -21,7 +21,7 @@ export default function Link({
 export const LinkVariant = {
     None: "",
     Content:
-        "text-sky-700 hover:text-sky-600 focus-visible:text-sky-500 underline hover:decoration-2 focus-visible:decoration-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2",
+        "inline-flex text-sky-700 hover:text-sky-600 focus-visible:text-sky-500 underline hover:decoration-2 focus-visible:decoration-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2",
     NavLink:
         "text-lg font-semibold hover:decoration-2 focus-visible:decoration-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2",
     PrimaryButton:

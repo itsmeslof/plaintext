@@ -2,7 +2,7 @@ import Container, { ContainerVariant } from "./Container";
 import Link, { LinkSize, LinkVariant } from "./Link";
 import NavLink from "./NavLink";
 
-export default function DashboardNavbar() {
+export default function DashboardNavbar({ user }) {
     return (
         <Container variant={ContainerVariant.MaxWidth}>
             <nav className="flex justify-between">
@@ -26,13 +26,24 @@ export default function DashboardNavbar() {
                         Account Settings
                     </NavLink>
                 </div>
-                <Link
-                    variant={LinkVariant.PrimaryButton}
-                    size={LinkSize.Button.Medium}
-                    href={route("files.create")}
-                >
-                    Create A New File
-                </Link>
+                <div className="flex items-center space-x-4">
+                    {user.is_admin ? (
+                        <Link
+                            variant={LinkVariant.SecondaryButton}
+                            size={LinkSize.Button.Medium}
+                            href={route("admin.settings.show")}
+                        >
+                            Admin Stuff
+                        </Link>
+                    ) : null}
+                    <Link
+                        variant={LinkVariant.PrimaryButton}
+                        size={LinkSize.Button.Medium}
+                        href={route("files.create")}
+                    >
+                        Create A New File
+                    </Link>
+                </div>
             </nav>
         </Container>
     );
