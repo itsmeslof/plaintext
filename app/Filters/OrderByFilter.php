@@ -8,13 +8,24 @@ class OrderByFilter
 {
     private array $handlers = [];
 
-    public function __construct(public string|null $orderBy, public string $defaultValue)
-    {
+    public function __construct(
+        public ?string $orderBy,
+        public string $defaultValue,
+        public ?string $column = null
+    ) {
         $this->handlers = [
             'newest' => fn (Builder $builder) => $builder->latest(),
             'oldest' => fn (Builder $builder) => $builder->oldest(),
-            'atoz' => fn (Builder $builder) => $builder->orderBy('name', 'asc'),
-            'ztoa' => fn (Builder $builder) => $builder->orderBy('name', 'desc'),
+            'atoz' => function (Builder $builder) use ($column) {
+                if (!$column) return;
+
+                $builder->orderBy($column, 'asc');
+            },
+            'ztoa' => function (Builder $builder) use ($column) {
+                if (!$column) return;
+
+                $builder->orderBy($column, 'desc');
+            },
         ];
     }
 

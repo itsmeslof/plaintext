@@ -24,7 +24,7 @@ class FileService
         $filesQuery = $user->files();
         $this->filterFiles(
             builder: $filesQuery,
-            queryParams: $queryParams
+            queryParams: $queryParams,
         );
 
         return $filesQuery;
@@ -43,7 +43,7 @@ class FileService
         $publicFilesQuery = $user->publicFiles();
         $this->filterFiles(
             builder: $publicFilesQuery,
-            queryParams: $queryParams
+            queryParams: $queryParams,
         );
 
         return $publicFilesQuery;
@@ -63,14 +63,15 @@ class FileService
         $pipeline->run(
             new SearchQueryFilter(
                 searchQuery: $queryParams['query'] ?? null,
-                column: 'name'
+                column: 'name',
             ),
             new VisibilityFilter(
-                visibility: $queryParams['visibility'] ?? null
+                visibility: $queryParams['visibility'] ?? null,
             ),
             new OrderByFilter(
                 orderBy: $queryParams['order_by'] ?? null,
                 defaultValue: 'newest',
+                column: $queryParams['order_by_column'] ?? null,
             ),
         );
     }

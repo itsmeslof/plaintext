@@ -21,11 +21,14 @@ class FileController extends Controller
 
         $files = $fileService->index(
             user: $user,
-            queryParams: $request->only(
-                'query',
-                'visibility',
-                'order_by'
-            )
+            queryParams: [
+                ...$request->only(
+                    'query',
+                    'visibility',
+                    'order_by',
+                ),
+                'order_by_column' => 'name',
+            ],
         )->paginate(10)->withQueryString();
 
         return Inertia::render('Files/Index', [
