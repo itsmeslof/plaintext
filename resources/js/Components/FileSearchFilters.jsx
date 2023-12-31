@@ -107,7 +107,6 @@ export default function FileSearchFilters({
                     <SelectInput
                         id="order_by"
                         name="order_by"
-                        type="text"
                         extraClasses="min-w-[160px]"
                         value={data.order_by}
                         onChange={handleOrderChange}

@@ -43,7 +43,6 @@ function FilesTable({ files }) {
                         <tr key={file.hashid} className="hover:bg-gray-50">
                             <td className="p-4 w-full">
                                 <Link
-                                    key={file.id}
                                     variant={LinkVariant.Content}
                                     size={LinkSize.Large}
                                     href={route("files.show", file.hashid)}
