@@ -6,7 +6,7 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class VisibilityFilter
 {
-    public function __construct(public string|null $visibility)
+    public function __construct(public ?string $visibility)
     {
     }
 

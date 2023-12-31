@@ -6,16 +6,26 @@ import SelectInput from "./SelectInput";
 import Button, { ButtonSize, ButtonVariant } from "./Button";
 import Link, { LinkVariant } from "./Link";
 
-export default function FileSearchFilters({ submitRoute }) {
+export default function FileSearchFilters({
+    submitRoute,
+    showVisibility = true,
+}) {
     const queryParams = new URLSearchParams(window.location.search);
 
     const { data, setData, get } = useForm({
         query: queryParams.get("query") || "",
-        visibility: valueOrDefault({
-            value: queryParams.get("visibility") || "all",
-            allowedValues: ["all", ...Object.values(ResourceVisibility)],
-            defaultValue: "all",
-        }),
+        ...(showVisibility
+            ? {
+                  visibility: valueOrDefault({
+                      value: queryParams.get("visibility") || "all",
+                      allowedValues: [
+                          "all",
+                          ...Object.values(ResourceVisibility),
+                      ],
+                      defaultValue: "all",
+                  }),
+              }
+            : {}),
         order_by: valueOrDefault({
             value: queryParams.get("order_by") || "newest",
             allowedValues: Object.values(OrderByFilter),
@@ -29,6 +39,8 @@ export default function FileSearchFilters({ submitRoute }) {
     }
 
     function handleVisibilityChange(e) {
+        if (!showVisibility) return;
+
         setData(
             "visibility",
             valueOrDefault({
@@ -66,27 +78,29 @@ export default function FileSearchFilters({ submitRoute }) {
                     />
                 </div>
 
-                <div>
-                    <InputLabel htmlFor="visibility" value="Visibility" />
-                    <SelectInput
-                        id="visibility"
-                        name="visibility"
-                        extraClasses="min-w-[160px]"
-                        value={data.visibility}
-                        onChange={handleVisibilityChange}
-                    >
-                        <option value="all">All</option>
-                        <option value={ResourceVisibility.Private}>
-                            Private
-                        </option>
-                        <option value={ResourceVisibility.Unlisted}>
-                            Unlisted
-                        </option>
-                        <option value={ResourceVisibility.Public}>
-                            Public
-                        </option>
-                    </SelectInput>
-                </div>
+                {showVisibility ? (
+                    <div>
+                        <InputLabel htmlFor="visibility" value="Visibility" />
+                        <SelectInput
+                            id="visibility"
+                            name="visibility"
+                            extraClasses="min-w-[160px]"
+                            value={data.visibility}
+                            onChange={handleVisibilityChange}
+                        >
+                            <option value="all">All</option>
+                            <option value={ResourceVisibility.Private}>
+                                Private
+                            </option>
+                            <option value={ResourceVisibility.Unlisted}>
+                                Unlisted
+                            </option>
+                            <option value={ResourceVisibility.Public}>
+                                Public
+                            </option>
+                        </SelectInput>
+                    </div>
+                ) : null}
 
                 <div>
                     <InputLabel htmlFor="order_by" value="Order Results" />

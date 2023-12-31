@@ -26,6 +26,7 @@ export default function Show({ auth, publicUser, publicFiles }) {
                     submitRoute={route("publicProfile.show", {
                         user: publicUser.username,
                     })}
+                    showVisibility={false}
                 />
                 <FilesTable files={publicFiles.data} />
                 <Pagination paginator={publicFiles} />
