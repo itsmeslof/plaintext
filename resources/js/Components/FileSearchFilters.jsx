@@ -66,7 +66,10 @@ export default function FileSearchFilters({
         <form onSubmit={handleSubmit}>
             <div className="flex items-end space-x-4">
                 <div>
-                    <InputLabel htmlFor="query" value="Search by name" />
+                    <InputLabel
+                        htmlFor="query"
+                        value="Search by Name or Extension"
+                    />
                     <TextInput
                         id="query"
                         name="query"
