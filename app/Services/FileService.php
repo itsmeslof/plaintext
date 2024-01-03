@@ -63,7 +63,7 @@ class FileService
         $pipeline->run(
             new SearchQueryFilter(
                 searchQuery: $queryParams['query'] ?? null,
-                column: 'name',
+                columns: ['name'],
             ),
             new VisibilityFilter(
                 visibility: $queryParams['visibility'] ?? null,

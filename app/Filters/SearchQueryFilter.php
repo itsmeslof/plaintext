@@ -6,8 +6,10 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class SearchQueryFilter
 {
-    public function __construct(public string|null $searchQuery, public string $column)
-    {
+    public function __construct(
+        public ?string $searchQuery,
+        public array $columns,
+    ) {
     }
 
     /**
@@ -19,8 +21,13 @@ class SearchQueryFilter
      */
     public function apply(Builder $builder): void
     {
-        if ($this->searchQuery) {
-            $builder->where($this->column, 'LIKE', "%{$this->searchQuery}%");
+        $firstColumn = array_shift($this->columns);
+        if ($this->searchQuery && $firstColumn) {
+            $builder->where($firstColumn, 'LIKE', "%{$this->searchQuery}%");
+
+            foreach ($this->columns as $column) {
+                $builder->orWhere($column, 'LIKE', "%{$this->searchQuery}%");
+            }
         }
     }
 }
