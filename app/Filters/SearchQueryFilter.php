@@ -22,12 +22,15 @@ class SearchQueryFilter
     public function apply(Builder $builder): void
     {
         $firstColumn = array_shift($this->columns);
-        if ($this->searchQuery && $firstColumn) {
-            $builder->where($firstColumn, 'LIKE', "%{$this->searchQuery}%");
+
+        if (!($this->searchQuery && $firstColumn)) return;
+
+        $builder->where(function (Builder $q) use ($firstColumn) {
+            $q->where($firstColumn, 'LIKE', "%{$this->searchQuery}%");
 
             foreach ($this->columns as $column) {
-                $builder->orWhere($column, 'LIKE', "%{$this->searchQuery}%");
+                $q->orWhere($column, 'LIKE', "%{$this->searchQuery}%");
             }
-        }
+        });
     }
 }
