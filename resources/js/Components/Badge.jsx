@@ -11,7 +11,16 @@ export default function Badge({
     );
 }
 
+const BASE_CLASSES = "rounded-full px-2 py-1 font-medium";
+
 export const BadgeVariant = {
     None: "",
-    Info: "rounded-full px-2 py-1 bg-gray-300 text-gray-600 font-medium",
+    Info: `${BASE_CLASSES} bg-gray-300 text-gray-700`,
+    Sky: `${BASE_CLASSES} bg-sky-200 text-sky-700`,
+
+    AccountStatus: {
+        Verified: `${BASE_CLASSES} bg-emerald-200 text-emerald-700`,
+        Unverified: `${BASE_CLASSES} bg-orange-200 text-orange-700`,
+        Banned: `${BASE_CLASSES} bg-rose-200 text-rose-700`,
+    },
 };

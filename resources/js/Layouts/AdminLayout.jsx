@@ -1,3 +1,4 @@
+import AdminNavbar from "@/Components/AdminNavbar";
 import Container, { ContainerVariant } from "@/Components/Container";
 import Link, { LinkSize, LinkVariant } from "@/Components/Link";
 import { usePage } from "@inertiajs/react";
@@ -37,8 +38,8 @@ export default function AdminLayout({ children }) {
                     </div>
                 </Container>
             </div>
-            <div className="py-12 space-y-6">
-                {/* <AdminNavbar /> */}
+            <div className="py-12 space-y-12">
+                <AdminNavbar />
                 <main>{children}</main>
             </div>
         </div>

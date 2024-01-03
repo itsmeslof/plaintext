@@ -15,3 +15,14 @@ export const OrderByFilter = {
     AtoZ: "atoz",
     ZtoA: "ztoa",
 };
+
+export const AccountStatus = {
+    Verified: "verified",
+    Unverified: "unverified",
+    Banned: "banned",
+};
+
+export const AccountRole = {
+    User: "user",
+    Admin: "admin",
+};
