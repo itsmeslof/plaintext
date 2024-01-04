@@ -14,7 +14,20 @@ export default function Show({ auth, publicUser, file, mdRenderedHtml }) {
             <Container variant={ContainerVariant.MaxWidth}>
                 <HeaderMessage user={auth?.user} publicUser={publicUser} />
 
-                <Text variant={TextVariant.PageTitle} as={TextElement.H1}>
+                <Link
+                    variant={LinkVariant.Content}
+                    href={route("publicProfile.show", {
+                        user: publicUser.username,
+                    })}
+                >
+                    Back to {publicUser.username}'s profile
+                </Link>
+
+                <Text
+                    variant={TextVariant.PageTitle}
+                    as={TextElement.H1}
+                    extraClasses="mt-4"
+                >
                     {file.name}
                     {file.extension}
                 </Text>
