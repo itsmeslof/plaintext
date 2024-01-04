@@ -9,7 +9,7 @@ import Container, { ContainerVariant } from "@/Components/Container";
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
-        name: "",
+        username: "",
         email: "",
         password: "",
         password_confirmation: "",
@@ -38,23 +38,23 @@ export default function Register() {
                 <div className="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
                     <form onSubmit={submit}>
                         <div>
-                            <InputLabel htmlFor="name" value="Name" />
+                            <InputLabel htmlFor="username" value="Username" />
 
                             <TextInput
-                                id="name"
-                                name="name"
-                                value={data.name}
+                                id="username"
+                                name="username"
+                                value={data.username}
                                 extraClasses="block w-full"
-                                autoComplete="name"
+                                autoComplete="username"
                                 isFocused={true}
                                 onChange={(e) =>
-                                    setData("name", e.target.value)
+                                    setData("username", e.target.value)
                                 }
                                 required
                             />
 
                             <InputError
-                                message={errors.name}
+                                message={errors.username}
                                 className="mt-2"
                             />
                         </div>
