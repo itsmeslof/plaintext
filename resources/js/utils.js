@@ -19,7 +19,6 @@ export const OrderByFilter = {
 export const AccountStatus = {
     Verified: "verified",
     Unverified: "unverified",
-    Banned: "banned",
 };
 
 export const AccountRole = {

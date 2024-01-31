@@ -40,7 +40,7 @@ export default function Index({ users }) {
 function UserSearchFilters({ submitRoute }) {
     const queryParams = new URLSearchParams(window.location.search);
 
-    const { data, setData, get, transform } = useForm({
+    const { data, setData, get } = useForm({
         query: queryParams.get("query") || "",
         account_status: valueOrDefault({
             value: queryParams.get("account_status") || "all",
@@ -147,7 +147,6 @@ function UserSearchFilters({ submitRoute }) {
                         <option value="all">All</option>
                         <option value="verified">Verified</option>
                         <option value="unverified">Unverified</option>
-                        <option value="banned">Banned</option>
                     </SelectInput>
                 </div>
 
@@ -235,11 +234,6 @@ function AccountStatusBadge({ user }) {
     return (
         <div className="flex items-center gap-2">
             <Badge variant={verificationVariant}>{verificationText}</Badge>
-            {user.is_banned ? (
-                <Badge variant={BadgeVariant.AccountStatus.Banned}>
-                    Banned
-                </Badge>
-            ) : null}
         </div>
     );
 }
@@ -264,7 +258,9 @@ function UsersTable({ users }) {
                                 <Link
                                     variant={LinkVariant.Content}
                                     size={LinkSize.Large}
-                                    href={route().current()} /** admin.users.show */
+                                    href={route("admin.users.show", {
+                                        user: user.username,
+                                    })}
                                 >
                                     {user.username}
                                 </Link>

@@ -19,7 +19,6 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'profile_visibility' => $this->profile_visibility,
             'email_verified_at' => $this->email_verified_at,
-            'is_banned' => $this->is_banned,
             'is_admin' => $this->is_admin,
             'files' => FileResource::collection($this->whenLoaded('files')),
             'created_at' => $this->created_at,

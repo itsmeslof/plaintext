@@ -11,7 +11,7 @@ export default function Badge({
     );
 }
 
-const BASE_CLASSES = "rounded-full px-2 py-1 font-medium";
+const BASE_CLASSES = "rounded-full text-sm px-2 py-1 font-medium";
 
 export const BadgeVariant = {
     None: "",
@@ -21,6 +21,5 @@ export const BadgeVariant = {
     AccountStatus: {
         Verified: `${BASE_CLASSES} bg-emerald-200 text-emerald-700`,
         Unverified: `${BASE_CLASSES} bg-orange-200 text-orange-700`,
-        Banned: `${BASE_CLASSES} bg-rose-200 text-rose-700`,
     },
 };

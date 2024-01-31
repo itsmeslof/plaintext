@@ -13,7 +13,6 @@ class AccountStatusFilter
         $this->handlers = [
             'unverified' => fn (Builder $builder) => $builder->whereNull('email_verified_at'),
             'verified' => fn (Builder $builder) => $builder->whereNotNull('email_verified_at'),
-            'banned' => fn (Builder $builder) => $builder->where('is_banned', true),
             '__fail' => fn (Builder $builder) => $builder->whereRaw('FALSE'),
         ];
     }
