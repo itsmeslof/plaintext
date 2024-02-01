@@ -8,12 +8,7 @@ import SelectInput from "@/Components/SelectInput";
 import Text, { TextElement, TextVariant } from "@/Components/Text";
 import TextInput from "@/Components/TextInput";
 import AdminLayout from "@/Layouts/AdminLayout";
-import {
-    AccountRole,
-    AccountStatus,
-    OrderByFilter,
-    valueOrDefault,
-} from "@/utils";
+import { AccountStatus, OrderByFilter, valueOrDefault } from "@/utils";
 import { Head, useForm } from "@inertiajs/react";
 
 export default function Index({ users }) {
@@ -47,11 +42,6 @@ function UserSearchFilters({ submitRoute }) {
             allowedValues: ["all", ...Object.values(AccountStatus)],
             defaultValue: "all",
         }),
-        account_role: valueOrDefault({
-            value: queryParams.get("account_role") || "all",
-            allowedValues: ["all", ...Object.values(AccountRole)],
-            defaultValue: "all",
-        }),
         order_by: valueOrDefault({
             value: queryParams.get("order_by") || "newest",
             allowedValues: Object.values(OrderByFilter),
@@ -75,17 +65,6 @@ function UserSearchFilters({ submitRoute }) {
             valueOrDefault({
                 value: e.target.value,
                 allowedValues: ["all", ...Object.values(AccountStatus)],
-                defaultValue: "all",
-            })
-        );
-    }
-
-    function handleAccountRoleChange(e) {
-        setData(
-            "account_role",
-            valueOrDefault({
-                value: e.target.value,
-                allowedValues: ["all", ...Object.values(AccountRole)],
                 defaultValue: "all",
             })
         );
@@ -147,21 +126,6 @@ function UserSearchFilters({ submitRoute }) {
                         <option value="all">All</option>
                         <option value="verified">Verified</option>
                         <option value="unverified">Unverified</option>
-                    </SelectInput>
-                </div>
-
-                <div>
-                    <InputLabel htmlFor="account_role" value="Account Role" />
-                    <SelectInput
-                        id="account_role"
-                        name="account_role"
-                        extraClasses="min-w-[140px]"
-                        value={data.account_role}
-                        onChange={handleAccountRoleChange}
-                    >
-                        <option value="all">All</option>
-                        <option value="user">User</option>
-                        <option value="admin">Admin</option>
                     </SelectInput>
                 </div>
 
@@ -247,7 +211,6 @@ function UsersTable({ users }) {
                         <th className="p-4">Username</th>
                         <th className="p-4">Email</th>
                         <th className="p-4">Account Status</th>
-                        <th className="p-4">Account Role</th>
                         <th className="p-4">Registration Date</th>
                     </tr>
                 </thead>
@@ -268,17 +231,6 @@ function UsersTable({ users }) {
                             <td className="p-4">{user.email}</td>
                             <td className="p-4">
                                 <AccountStatusBadge user={user} />
-                            </td>
-                            <td className="p-4">
-                                <Badge
-                                    variant={
-                                        user.is_admin
-                                            ? BadgeVariant.Sky
-                                            : BadgeVariant.Info
-                                    }
-                                >
-                                    {user.is_admin ? "Admin" : "User"}
-                                </Badge>
                             </td>
                             <td className="p-4">{user.created_at_fmt}</td>
                         </tr>

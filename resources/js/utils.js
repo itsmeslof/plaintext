@@ -20,8 +20,3 @@ export const AccountStatus = {
     Verified: "verified",
     Unverified: "unverified",
 };
-
-export const AccountRole = {
-    User: "user",
-    Admin: "admin",
-};

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Filters\AccountRoleFilter;
 use App\Filters\AccountStatusFilter;
 use App\Filters\FilterPipeline;
 use App\Filters\OrderByFilter;
@@ -27,9 +26,6 @@ class UserController extends Controller
             ),
             new AccountStatusFilter(
                 status: $request->get('account_status'),
-            ),
-            new AccountRoleFilter(
-                role: $request->get('account_role'),
             ),
             new OrderByFilter(
                 orderBy: $request->get('order_by'),
