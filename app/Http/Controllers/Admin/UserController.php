@@ -44,4 +44,11 @@ class UserController extends Controller
             'users' => UserResource::collection($users),
         ]);
     }
+
+    public function show(Request $request, User $user)
+    {
+        return Inertia::render('Admin/Users/Show', [
+            'viewingUser' => new UserResource($user),
+        ]);
+    }
 }

@@ -61,8 +61,8 @@ export default function ShowHomepageForm({ show_home_page }) {
                         value={data.show_home_page}
                         onChange={handleShowHomePageChange}
                     >
-                        <option value={"1"}>Active</option>
-                        <option value={"0"}>Inactive</option>
+                        <option value={"1"}>Show home page</option>
+                        <option value={"0"}>Do not show home page</option>
                     </SelectInput>
                 </div>
 

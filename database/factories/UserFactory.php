@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\ResourceVisibility;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -21,10 +22,15 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
+            'username' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
+            'email_verified_at' => fake()->randomElement([null, now()]),
             'password' => static::$password ??= Hash::make('password'),
+            'is_admin' => fake()->randomElement([true, false]),
+            'profile_visibility' => fake()->randomElement([
+                ResourceVisibility::PRIVATE,
+                ResourceVisibility::PUBLIC
+            ]),
             'remember_token' => Str::random(10),
         ];
     }

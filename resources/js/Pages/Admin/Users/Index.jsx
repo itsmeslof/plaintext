@@ -11,9 +11,9 @@ import AdminLayout from "@/Layouts/AdminLayout";
 import { AccountStatus, OrderByFilter, valueOrDefault } from "@/utils";
 import { Head, useForm } from "@inertiajs/react";
 
-export default function Index({ users }) {
+export default function Index({ flash, users }) {
     return (
-        <AdminLayout>
+        <AdminLayout flash={flash}>
             <Head title="Manage Users" />
 
             <Container

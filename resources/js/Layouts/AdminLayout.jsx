@@ -2,13 +2,20 @@ import AdminNavbar from "@/Components/AdminNavbar";
 import Container, { ContainerVariant } from "@/Components/Container";
 import Link, { LinkSize, LinkVariant } from "@/Components/Link";
 import { usePage } from "@inertiajs/react";
+import { useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
-export default function AdminLayout({ children }) {
+export default function AdminLayout({ flash, children }) {
     const user = usePage().props.auth.user;
+
+    useEffect(() => {
+        if (flash?.status) toast.success(flash.status);
+    }, [flash]);
 
     return (
         <div className="min-h-screen bg-gray-100">
             <div className="w-full bg-gray-700 p-3">
+                <Toaster />
                 <Container variant={ContainerVariant.MaxWidth}>
                     <div className="flex items-center space-x-4">
                         <Link

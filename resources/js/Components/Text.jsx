@@ -19,6 +19,7 @@ export const TextVariant = {
     SectionTitle: "text-gray-800 text-lg font-medium",
     Content: "text-gray-600 font-medium",
     Small: "text-sm text-gray-600",
+    InputLabel: "text-sm text-gray-700 font-medium",
 };
 
 export const TextElement = {
