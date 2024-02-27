@@ -106,8 +106,21 @@ class FileController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(File $file)
+    public function destroy(Request $request, File $file)
     {
-        //
+        $this->authorize('destroy', $file);
+
+        $filenameWithExtension = "{$file->name}{$file->extension}";
+        if ($request->get('filename') !== $filenameWithExtension) {
+            return back()->withErrors([
+                'delete_file' => 'Please confirm the name of the file you want to delete.'
+            ]);
+        }
+
+        $file->delete();
+
+        $request->session()->flash('status', 'File deleted');
+
+        return to_route('files.index');
     }
 }

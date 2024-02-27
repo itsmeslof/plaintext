@@ -16,4 +16,9 @@ class FilePolicy
     {
         return $file->user_id === $user->id;
     }
+
+    public function destroy(User $user, File $file): bool
+    {
+        return $this->edit(user: $user, file: $file);
+    }
 }
