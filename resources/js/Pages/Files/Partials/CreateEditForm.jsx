@@ -6,34 +6,27 @@ import { ResourceVisibility, valueOrDefault } from "@/utils";
 import { Transition } from "@headlessui/react";
 import { useForm } from "@inertiajs/react";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function CreateEditForm({ file = null }) {
     const [count, setCount] = useState(file?.contents.length || 0);
     const maxContentLength = 65535;
 
-    const {
-        data,
-        setData,
-        patch,
-        post,
-        errors,
-        hasErrors,
-        processing,
-        recentlySuccessful,
-    } = useForm({
-        name: file?.name || "",
-        extension: valueOrDefault({
-            value: file?.extension || ".md",
-            allowedValues: [".md", ".txt"],
-            defaultValue: ".md",
-        }),
-        visibility: valueOrDefault({
-            value: file?.visibility || "private",
-            allowedValues: Object.values(ResourceVisibility),
-            defaultValue: "private",
-        }),
-        contents: file?.contents || "",
-    });
+    const { data, setData, patch, post, errors, hasErrors, processing } =
+        useForm({
+            name: file?.name || "",
+            extension: valueOrDefault({
+                value: file?.extension || ".md",
+                allowedValues: [".md", ".txt"],
+                defaultValue: ".md",
+            }),
+            visibility: valueOrDefault({
+                value: file?.visibility || "private",
+                allowedValues: Object.values(ResourceVisibility),
+                defaultValue: "private",
+            }),
+            contents: file?.contents || "",
+        });
 
     function handleSubmit() {
         if (!file) {
@@ -44,8 +37,7 @@ export default function CreateEditForm({ file = null }) {
         patch(
             route("files.update", {
                 file: file.hashid,
-            }),
-            data
+            })
         );
     }
 
@@ -82,17 +74,6 @@ export default function CreateEditForm({ file = null }) {
                     </ul>
                 </div>
             )}
-            <Transition
-                show={recentlySuccessful}
-                enter="transition ease-in-out"
-                enterFrom="opacity-0"
-                leave="transition ease-in-out"
-                leaveTo="opacity-0"
-            >
-                <div className="bg-teal-100 border-l-4 border-teal-300 rounded p-4">
-                    <p>File Saved.</p>
-                </div>
-            </Transition>
             <div className="flex items-end space-x-4">
                 <div className="w-1/3">
                     <InputLabel htmlFor="name" value="File Name" />
