@@ -52,6 +52,8 @@ class FileController extends Controller
         $validated = $request->validated();
         $file = $request->user()->files()->create($validated);
 
+        $request->session()->flash('status', 'File created');
+
         return redirect()->route('files.show', $file);
     }
 
@@ -95,6 +97,8 @@ class FileController extends Controller
 
         $validated = $request->validated();
         $file->update($validated);
+
+        $request->session()->flash('status', 'File saved');
 
         return back();
     }

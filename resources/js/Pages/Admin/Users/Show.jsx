@@ -12,9 +12,9 @@ import Badge, { BadgeVariant } from "@/Components/Badge";
 import InputLabel from "@/Components/InputLabel";
 import InputError from "@/Components/InputError";
 
-export default function Show({ flash, auth: { user }, viewingUser }) {
+export default function Show({ auth: { user }, viewingUser }) {
     return (
-        <AdminLayout flash={flash}>
+        <AdminLayout>
             <Head title={`Manage User - ${viewingUser.username}`} />
 
             <Container

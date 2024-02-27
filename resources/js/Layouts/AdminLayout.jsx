@@ -5,10 +5,12 @@ import { usePage } from "@inertiajs/react";
 import { useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
-export default function AdminLayout({ flash, children }) {
+export default function AdminLayout({ children }) {
     const user = usePage().props.auth.user;
+    const flash = usePage().props.flash;
 
     useEffect(() => {
+        toast.remove();
         if (flash?.status) toast.success(flash.status);
     }, [flash]);
 
