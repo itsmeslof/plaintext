@@ -11,6 +11,8 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admin')->as('admin.')->group(
     Route::patch('/settings', [SettingsController::class, 'update'])->name('settings.update');
 
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::get('/users/{user:username}', [UserController::class, 'show'])->name('users.show');
     Route::post('/users/{user:username}/verify', VerifyUserController::class)->name('users.verify');
     Route::delete('/users/{user:username}', DeleteUserController::class)->name('users.destroy');
