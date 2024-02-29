@@ -132,7 +132,10 @@ function CreateUserForm() {
                                     a random password that must be changed by
                                     the User. After creating the account, the
                                     user should visit{" "}
-                                    <Link variant={LinkVariant.Content}>
+                                    <Link
+                                        variant={LinkVariant.Content}
+                                        href={route("password.request")}
+                                    >
                                         {route("password.request")}
                                     </Link>{" "}
                                     to request a password change and set their
