@@ -1,18 +1,8 @@
 import AdminNavbar from "@/Components/AdminNavbar";
 import Container, { ContainerVariant } from "@/Components/Container";
 import Link, { LinkSize, LinkVariant } from "@/Components/Link";
-import { usePage } from "@inertiajs/react";
-import { useEffect } from "react";
-import toast from "react-hot-toast";
 
 export default function AdminLayout({ children }) {
-    const user = usePage().props.auth.user;
-    const flash = usePage().props.flash;
-
-    useEffect(() => {
-        if (flash?.status) toast.success(flash.status);
-    }, [flash]);
-
     return (
         <div className="min-h-screen bg-gray-100">
             <div className="w-full bg-gray-700 p-3">
