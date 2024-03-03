@@ -37,6 +37,15 @@ export default function DashboardNavbar({ user }) {
                         </Link>
                     ) : null}
                     <Link
+                        variant={LinkVariant.SecondaryButton}
+                        size={LinkSize.Button.Medium}
+                        href={route("logout")}
+                        method="post"
+                        as="button"
+                    >
+                        Logout
+                    </Link>
+                    <Link
                         variant={LinkVariant.PrimaryButton}
                         size={LinkSize.Button.Medium}
                         href={route("files.create")}
