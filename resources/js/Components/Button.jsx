@@ -12,6 +12,7 @@ export default function Button({
         <button
             className={`${defaultClasses} ${variant} ${size} ${extraClasses}`}
             disabled={disabled}
+            type={type}
             {...props}
         >
             {children}
