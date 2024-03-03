@@ -3,7 +3,10 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Throwable;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Inertia\Inertia;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -23,8 +26,21 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function (HttpException $e, Request $request) {
+            $statusCode = $e->getStatusCode();
+            $prod = App::environment('production');
+
+            if ($statusCode === 419) {
+                return back()->with([
+                    'error' => 'Your page session has expired, please reload the page and try again.'
+                ]);
+            }
+
+            if (!$prod) return;
+
+            return Inertia::render('Error', ['status' => $statusCode])
+                ->toResponse($request)
+                ->setStatusCode($statusCode);;
         });
     }
 }

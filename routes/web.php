@@ -15,8 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return 'Home';
-    // return redirect()->route('dashboard');
+    return redirect()->route('dashboard');
 })->name('home');
 
 Route::middleware('auth')->get('/dashboard', DashboardController::class)->name('dashboard');

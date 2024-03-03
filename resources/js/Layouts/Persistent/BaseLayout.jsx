@@ -7,6 +7,7 @@ export default function BaseLayout({ children }) {
 
     useEffect(() => {
         if (flash?.status) toast.success(flash.status);
+        if (flash?.error) toast.error(flash.error);
     }, [flash]);
 
     return (
