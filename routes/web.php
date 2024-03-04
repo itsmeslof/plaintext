@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect()->route('dashboard');
+    $registrationEnabled = admin_settings()->get('enable_user_registration', false);
+
+    if (!admin_settings()->get('show_home_page')) {
+        return to_route('dashboard');
+    }
+
+    return Inertia::render('Home', [
+        'registrationEnabled' => (bool)$registrationEnabled
+    ]);
 })->name('home');
 
 Route::middleware('auth')->get('/dashboard', DashboardController::class)->name('dashboard');
