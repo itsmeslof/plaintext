@@ -16,11 +16,20 @@ use Inertia\Response;
 
 class RegisteredUserController extends Controller
 {
+    private $registrationEnabled = false;
+
+    public function __construct()
+    {
+        $this->registrationEnabled = (bool)admin_settings()->get("enable_user_registration", false);
+    }
+
     /**
      * Display the registration view.
      */
     public function create(): Response
     {
+        if (!$this->registrationEnabled) abort(404);
+
         return Inertia::render('Auth/Register');
     }
 
@@ -31,6 +40,8 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        if (!$this->registrationEnabled) abort(404);
+
         $request->validate([
             'username' => ['required', 'string', 'alpha_dash', 'max:255', 'unique:users'],
             'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
