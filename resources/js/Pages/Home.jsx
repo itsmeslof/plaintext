@@ -26,9 +26,9 @@ export default function Home({ auth, registrationEnabled }) {
                         Tailwind.
                     </Text>
                     <Text variant={TextVariant.Content} extraClasses="mt-4">
-                        Plaintext supports rendering text files in markdown,
-                        with full support for the{" "}
+                        Plaintext supports rendering raw text files and markdown with full support for the{" "}
                         <Link
+                            pure
                             variant={LinkVariant.Content}
                             href="https://spec.commonmark.org/0.30/"
                         >
@@ -36,6 +36,7 @@ export default function Home({ auth, registrationEnabled }) {
                         </Link>{" "}
                         and{" "}
                         <Link
+                            pure
                             variant={LinkVariant.Content}
                             href="https://github.github.com/gfm/"
                         >
@@ -48,6 +49,7 @@ export default function Home({ auth, registrationEnabled }) {
                         <Text variant={TextVariant.Content}>
                             For more information, see the project's{" "}
                             <Link
+                                pure
                                 variant={LinkVariant.Content}
                                 href="https://github.com/itsmeslof/plaintext"
                             >
@@ -55,6 +57,7 @@ export default function Home({ auth, registrationEnabled }) {
                             </Link>
                             . A demo is available at{" "}
                             <Link
+                                pure
                                 variant={LinkVariant.Content}
                                 href="https://demo.plaintext.slof.dev"
                             >

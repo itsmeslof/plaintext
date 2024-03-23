@@ -5,16 +5,19 @@ export default function Link({
     variant = LinkVariant.None,
     size = LinkSize.Default,
     extraClasses = "",
+    pure = false,
     children,
     ...props
 }) {
+    const Element = pure ? 'a' : InertiaLink;
+
     return (
-        <InertiaLink
+        <Element
             className={`${defaultClasses} ${variant} ${size} ${extraClasses}`}
             {...props}
         >
             {children}
-        </InertiaLink>
+        </Element>
     );
 }
 
