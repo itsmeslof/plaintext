@@ -20,3 +20,7 @@ export const AccountStatus = {
     Verified: "verified",
     Unverified: "unverified",
 };
+
+export function copyToClipboard(value) {
+    return navigator.clipboard.writeText(value);
+}

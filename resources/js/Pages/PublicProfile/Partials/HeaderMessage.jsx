@@ -1,6 +1,6 @@
 import Link, { LinkSize, LinkVariant } from "@/Components/Link";
 
-export default function HeaderMessage({ user, publicUser }) {
+export default function HeaderMessage({ user, publicUser, showProfileName }) {
     return (
         <div className="flex items-center space-x-6 mb-12">
             <Link
@@ -25,7 +25,7 @@ export default function HeaderMessage({ user, publicUser }) {
                 {user ? "My Dashboard" : "Home Page"}
             </Link>
 
-            <p className="text-gray-700 inline-flex gap-2">
+            {showProfileName ? <p className="text-gray-700 inline-flex gap-2">
                 <span>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,7 @@ export default function HeaderMessage({ user, publicUser }) {
                     </svg>
                 </span>
                 You are viewing {publicUser.username}'s public profile
-            </p>
+            </p> : null}
         </div>
     );
 }

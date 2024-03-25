@@ -8,12 +8,19 @@ import Modal from "@/Components/Modal";
 import Text, { TextElement, TextVariant } from "@/Components/Text";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { ResourceVisibility, copyToClipboard } from "@/utils";
 import { Head, useForm } from "@inertiajs/react";
 import { useRef, useState } from "react";
+import toast from "react-hot-toast";
 
-export default function Show({ file, mdRenderedHtml }) {
+export default function Show({ auth: { user }, file, mdRenderedHtml }) {
     const [confirmingFileDeletion, setConfirmingFileDeletion] = useState(false);
     const filenameInput = useRef();
+
+    const shareable = [
+        ResourceVisibility.Public,
+        ResourceVisibility.Unlisted
+    ].includes(file.visibility);
 
     const {
         data,
@@ -99,14 +106,31 @@ export default function Show({ file, mdRenderedHtml }) {
                         </div>
                     </div>
 
-                    <Button
-                        variant={ButtonVariant.Danger}
-                        size={ButtonSize.Medium}
-                        type="button"
-                        onClick={confirmFileDeletion}
-                    >
-                        Delete File
-                    </Button>
+                    <div className="flex items-center space-x-4">
+                        {shareable ? <Button
+                            variant={ButtonVariant.Secondary}
+                            size={ButtonSize.Medium}
+                            onClick={() => {
+                                copyToClipboard(route(
+                                    'publicProfile.files.show',
+                                    { user: user.username, file: file.hashid }
+                                ))
+                                .then((res) => toast.success('Copied to clipboard'))
+                                .catch((err) => toast.error('Unable to copy to clipboard'))
+                            }}
+                        >
+                            Copy Share Link
+                        </Button> : null}
+                        <Button
+                            variant={ButtonVariant.Danger}
+                            size={ButtonSize.Medium}
+                            type="button"
+                            onClick={confirmFileDeletion}
+                        >
+                            Delete File
+                        </Button>
+                    </div>
+
 
                     <Modal show={confirmingFileDeletion} onClose={closeModal}>
                         <form onSubmit={deleteFile} className="p-6">
@@ -188,9 +212,7 @@ export default function Show({ file, mdRenderedHtml }) {
                                     type="submit"
                                     extraClasses="ms-3"
                                     disabled={
-                                        processing ||
-                                        data.filename !==
-                                            `${file.name}${file.extension}`
+                                        processing || data.filename !== `${file.name}${file.extension}`
                                     }
                                 >
                                     Delete File

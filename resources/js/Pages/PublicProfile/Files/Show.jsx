@@ -5,23 +5,30 @@ import GuestLayout from "@/Layouts/GuestLayout";
 import { Head } from "@inertiajs/react";
 import HeaderMessage from "../Partials/HeaderMessage";
 import Link, { LinkSize, LinkVariant } from "@/Components/Link";
+import { ResourceVisibility } from "@/utils";
 
 export default function Show({ auth, publicUser, file, mdRenderedHtml }) {
+    const profileIsPublic = publicUser.profile_visibility === ResourceVisibility.Public;
+
     return (
         <GuestLayout>
             <Head title={`${publicUser.username}'s Profile`} />
 
             <Container variant={ContainerVariant.MaxWidth}>
-                <HeaderMessage user={auth?.user} publicUser={publicUser} />
+                <HeaderMessage 
+                    user={auth?.user} 
+                    publicUser={publicUser} 
+                    showProfileName={profileIsPublic} 
+                />
 
-                <Link
+                {profileIsPublic ? <Link
                     variant={LinkVariant.Content}
                     href={route("publicProfile.show", {
                         user: publicUser.username,
                     })}
                 >
                     Back to {publicUser.username}'s profile
-                </Link>
+                </Link> : null}
 
                 <Text
                     variant={TextVariant.PageTitle}
