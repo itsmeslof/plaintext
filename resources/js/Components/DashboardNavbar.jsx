@@ -1,3 +1,4 @@
+import { ButtonSize, ButtonVariant } from "./Button";
 import Container, { ContainerVariant } from "./Container";
 import Link, { LinkSize, LinkVariant } from "./Link";
 import NavLink from "./NavLink";
@@ -37,8 +38,8 @@ export default function DashboardNavbar({ user }) {
                         </Link>
                     ) : null}
                     <Link
-                        variant={LinkVariant.SecondaryButton}
-                        size={LinkSize.Button.Medium}
+                        variant={ButtonVariant.Secondary}
+                        size={ButtonSize.Medium}
                         href={route("logout")}
                         method="post"
                         as="button"
