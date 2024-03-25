@@ -55,14 +55,6 @@ export default function Home({ auth, registrationEnabled }) {
                             >
                                 GitHub Repository
                             </Link>
-                            . A demo is available at{" "}
-                            <Link
-                                pure
-                                variant={LinkVariant.Content}
-                                href="https://demo.plaintext.slof.dev"
-                            >
-                                https://demo.plaintext.slof.dev
-                            </Link>
                             .
                         </Text>
                     </div>
