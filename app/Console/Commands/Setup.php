@@ -13,7 +13,7 @@ class Setup extends Command
      *
      * @var string
      */
-    protected $signature = 'app:setup';
+    protected $signature = 'plaintext:setup';
 
     /**
      * The console command description.
@@ -39,9 +39,9 @@ class Setup extends Command
 
             $this->error('[Setup] There was an error running the Setup command:');
             $this->error($e->getMessage());
-        } finally {
-            return $status;
         }
+        
+        return $status;
     }
 
     /**
