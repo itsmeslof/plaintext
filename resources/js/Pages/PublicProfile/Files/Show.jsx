@@ -12,7 +12,9 @@ export default function Show({ auth, publicUser, file, mdRenderedHtml }) {
 
     return (
         <GuestLayout>
-            <Head title={`${publicUser.username}'s Profile`} />
+            <Head title={
+                profileIsPublic ? `${publicUser.username}'s Profile` : 'Viewing File'
+            } />
 
             <Container variant={ContainerVariant.MaxWidth}>
                 <HeaderMessage 
